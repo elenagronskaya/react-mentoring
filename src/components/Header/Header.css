@@ -1,8 +1,9 @@
 .wrapperHeader {
     display: flex;
     justify-content: space-between;
-    padding: 20px;
+    padding: 20px 0;
     border-bottom: 1px solid rgb(240, 117, 117);
+    margin-bottom: 30px;
 }
 
 .wrapperButton {

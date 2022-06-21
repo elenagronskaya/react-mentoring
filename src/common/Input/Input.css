@@ -1,0 +1,14 @@
+.input {
+    width: 350px;
+    height: 35px;
+    padding: 10px;
+    border: 1px solid yellowgreen;
+    border-radius: 4px;
+    outline: none;
+}
+
+.label {
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+}

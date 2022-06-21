@@ -3,8 +3,10 @@
     border-radius: 4px;
     color: rgb(2, 2, 19);
     background-color: #fff;
-    padding: 8px 18px;
+    padding: 5px;
     font-size: 14px;
     font-weight: 400;
     cursor: pointer;
+    width: 140px;
+    height: 35px;
 }

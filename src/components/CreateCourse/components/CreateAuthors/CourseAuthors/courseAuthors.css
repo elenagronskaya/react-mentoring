@@ -1,0 +1,7 @@
+.textEmptyList {
+    font-size: 16px;
+    color: rgb(18, 18, 57);
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}

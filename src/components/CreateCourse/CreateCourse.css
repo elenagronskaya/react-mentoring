@@ -1,0 +1,21 @@
+.inputWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.textarea {
+    padding: 10px;
+    border: 1px solid rgb(171, 248, 57);
+    outline: none;
+    height: 100px !important;
+    border-radius: 4px;
+}
+
+.createAuthorsWrapper {
+    border: 1px solid rgb(12, 12, 69);
+    border-radius: 4px;
+    margin-top: 20px;
+    padding: 20px;
+}

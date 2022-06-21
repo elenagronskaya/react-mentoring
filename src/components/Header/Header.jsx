@@ -1,17 +1,18 @@
 import React from 'react';
 import Button from '../../common/Button/Button';
+import { LOGOUT } from '../../constants';
 import Logo from './components/Logo/Logo';
-import './Header.css';
+import './header.css';
 
 const Header = () => {
 	return (
-		<div className='wrapperHeader'>
+		<section className='wrapperHeader'>
 			<Logo />
 			<div className='wrapperButton'>
 				<span className='nameAccount'>Julia</span>
-				<Button buttonText='logout' />
+				<Button buttonText={LOGOUT} />
 			</div>
-		</div>
+		</section>
 	);
 };
 

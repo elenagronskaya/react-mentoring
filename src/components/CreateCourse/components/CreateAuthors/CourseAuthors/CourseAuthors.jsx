@@ -1,15 +1,15 @@
 import React from 'react';
 import AuthorItem from '../../AuthorItem/AuthorItem';
-import './courseAuthors.css';
+import styles from './styles.module.scss';
 
 const CourseAuthors = ({ authors, processAuthor }) => {
 	const isEmptyAuthorList = !authors || authors.length === 0;
 
 	return (
-		<div className='addAuthorWrapper'>
-			<p className='addAuthorTitle'>Course authors</p>
+		<div className={styles.addAuthorWrapper}>
+			<h2 className={styles.addAuthorTitle}>Course authors</h2>
 			{isEmptyAuthorList ? (
-				<p className='textEmptyList'>Author list is empty</p>
+				<p className={styles.textEmptyList}>Author list is empty</p>
 			) : (
 				<>
 					{authors.map(({ name, id }) => {

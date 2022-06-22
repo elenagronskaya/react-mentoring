@@ -4,24 +4,23 @@ import AuthorItem from '../AuthorItem/AuthorItem';
 import AddAuthors from './AddAuthors/AddAuthors';
 import AddDuration from './AddDuration/AddDuration';
 import CourseAuthors from './CourseAuthors/CourseAuthors';
+import { getAuthors, getAuthorById } from '../../../../services/courseService';
 import { v4 as uuidv4 } from 'uuid';
-import './createAuthors.css';
+import styles from './styles.module.scss';
 
 const CreateAuthors = ({ authors, setAuthors, setDuration, duration }) => {
 	const [availableAuthors, setAvailableAuthors] = useState([]);
 
 	useEffect(() => {
-		setAvailableAuthors([...mockedAuthorsList]);
+		setAvailableAuthors(getAuthors());
 	}, []);
 
-	const deleteAuthor = (authorId) => {
-		setAuthors([...authors.filter((author) => author.id !== authorId)]);
+	const createAuthor = (name) => {
+		const author = { name: name, id: uuidv4() };
+		mockedAuthorsList.push(author);
+		setAvailableAuthors([...availableAuthors, author]);
 	};
 
-	const getAuthorById = (authorId) => {
-		const author = mockedAuthorsList.find((item) => item.id === authorId);
-		return author;
-	};
 	const addAuthor = (authorId) => {
 		const author = getAuthorById(authorId);
 		authors.push({ ...author });
@@ -31,16 +30,17 @@ const CreateAuthors = ({ authors, setAuthors, setDuration, duration }) => {
 		setAuthors([...authors]);
 	};
 
-	const createAuthor = (name) => {
-		const author = { name: name, id: uuidv4() };
-		mockedAuthorsList.push(author);
+	const deleteAuthor = (authorId) => {
+		const author = getAuthorById(authorId);
+		setAuthors([...authors.filter((author) => author.id !== authorId)]);
 		setAvailableAuthors([...availableAuthors, author]);
 	};
+
 	return (
-		<section className='createAuthorsSection'>
+		<section className={styles.createAuthorsSection}>
 			<AddAuthors createAuthor={createAuthor} />
 			<div>
-				<h2 className='addAuthorTitle'>Authors</h2>
+				<h2 className={styles.addAuthorTitle}>Authors</h2>
 				{availableAuthors.map(({ id, name }) => {
 					return (
 						<AuthorItem

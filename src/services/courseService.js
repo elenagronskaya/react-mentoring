@@ -25,3 +25,16 @@ export const joinAuthors = (authorIds) => {
 		return '';
 	});
 };
+
+export const addCourse = (course) => {
+	mockedCoursesList.push(course);
+};
+
+export const getAuthorById = (authorId) => {
+	const author = mockedAuthorsList.find((item) => item.id === authorId);
+	return { ...author };
+};
+
+export const getAuthors = () => {
+	return [...mockedAuthorsList];
+};

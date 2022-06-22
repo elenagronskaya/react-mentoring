@@ -1,15 +1,13 @@
 import React from 'react';
-import './button.css';
+import styles from './styles.module.scss';
 
-const Button = ({ buttonText, showCourseButtonStyle, onClick }) => {
-	return (
-		<button
-			className={showCourseButtonStyle ? showCourseButtonStyle : 'button'}
-			onClick={onClick}
-		>
-			{buttonText}
-		</button>
-	);
-};
+const Button = ({ buttonText, showCourseButtonStyle, onClick }) => (
+	<button
+		className={showCourseButtonStyle ? showCourseButtonStyle : styles.button}
+		onClick={onClick}
+	>
+		{buttonText}
+	</button>
+);
 
 export default Button;

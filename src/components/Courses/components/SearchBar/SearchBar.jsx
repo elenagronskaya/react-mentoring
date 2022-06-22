@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Button from '../../../../common/Button/Button';
 import Input from '../../../../common/Input/Input';
 import { SEARCH } from '../../../../constants';
-import './searchBar.css';
+import styles from './styles.module.scss';
 
 const SearchBar = ({ onSearch }) => {
 	const [filter, setFilter] = useState('');
@@ -18,7 +18,7 @@ const SearchBar = ({ onSearch }) => {
 		onSearch(filter);
 	};
 	return (
-		<div className='wrapperSearchBar'>
+		<div className={styles.wrapperSearchBar}>
 			<Input
 				placeholder='Enter course name...'
 				type='search'

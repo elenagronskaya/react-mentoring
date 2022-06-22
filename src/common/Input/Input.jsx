@@ -1,24 +1,24 @@
 import React from 'react';
-import './input.css';
+import styles from './styles.module.scss';
 
 const Input = ({
 	placeholder,
 	onChange,
-	type,
 	labelText,
 	createCourseInput,
-}) => {
-	return (
-		<label htmlFor='html' className='label'>
-			{labelText}
-			<input
-				placeholder={placeholder}
-				className={createCourseInput ? createCourseInput : 'input'}
-				type={type}
-				onChange={onChange}
-			/>
-		</label>
-	);
-};
+	value,
+	type,
+}) => (
+	<label htmlFor='html' className={styles.label}>
+		{labelText}
+		<input
+			placeholder={placeholder}
+			className={createCourseInput ? createCourseInput : styles.input}
+			type={type}
+			onChange={onChange}
+			value={value}
+		/>
+	</label>
+);
 
 export default Input;

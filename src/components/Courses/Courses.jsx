@@ -5,7 +5,7 @@ import Button from '../../common/Button/Button';
 import dataFormat from '../../helpers/dataFormat';
 import { getCourses } from '../../services/courseService';
 import { ADD_COURSES } from '../../constants';
-import './courses.css';
+import styles from './styles.module.scss';
 
 const Courses = ({ setIsAddingCourse }) => {
 	const [courses, setCourses] = useState([]);
@@ -25,7 +25,7 @@ const Courses = ({ setIsAddingCourse }) => {
 
 	return (
 		<>
-			<div className='searchBarSection'>
+			<div className={styles.searchBarSection}>
 				<SearchBar onSearch={onSearch} />
 				<Button
 					buttonText={ADD_COURSES}

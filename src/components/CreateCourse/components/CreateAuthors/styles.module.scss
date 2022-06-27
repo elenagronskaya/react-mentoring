@@ -1,0 +1,17 @@
+.createAuthorsSection {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: max-content;
+    grid-gap: 30px;
+
+    @media (max-width: 767px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.addAuthorTitle {
+    font-size: 18px;
+    font-weight: 500;
+    color: rgb(22, 22, 69);
+    text-align: center;
+}

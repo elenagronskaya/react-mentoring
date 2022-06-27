@@ -1,0 +1,25 @@
+.searchBarSection {
+    display: flex;
+    justify-content: space-between;
+
+    @media (max-width: 767px) {
+        flex-direction: column;
+    }
+}
+
+.button {
+    border: 2px solid rgb(4, 4, 120);
+    border-radius: 4px;
+    color: rgb(2, 2, 19);
+    background-color: #fff;
+    padding: 5px;
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
+    width: 140px;
+    height: 35px;
+
+    @media (max-width: 530px) {
+        width: 100%;
+    }
+}

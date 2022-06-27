@@ -23,8 +23,13 @@ const SearchBar = ({ onSearch }) => {
 				placeholder='Enter course name...'
 				type='search'
 				onChange={handleChange}
+				createCourseInput={styles.input}
 			/>
-			<Button buttonText={SEARCH} onClick={onSubmit} />
+			<Button
+				buttonText={SEARCH}
+				onClick={onSubmit}
+				showCourseButtonStyle={styles.button}
+			/>
 		</div>
 	);
 };

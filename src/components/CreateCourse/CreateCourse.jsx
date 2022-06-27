@@ -54,6 +54,7 @@ const CreateCourse = ({ setIsAddingCourse }) => {
 						labelText={CREATE_COURSE_TITLE}
 						onChange={(event) => setCourseTitle(event.target.value)}
 						placeholder='Enter title...'
+						createCourseInput={styles.input}
 					/>
 					<Button buttonText={CREATE_COURSE} onClick={() => createCourse()} />
 				</div>

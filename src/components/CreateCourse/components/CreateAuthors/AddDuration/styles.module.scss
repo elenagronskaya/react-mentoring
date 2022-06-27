@@ -1,7 +1,18 @@
+.addAuthorWrapper {
+    @media (max-width: 767px) {
+        order: 4;
+    }
+    
+}
+
 .durationCoun {
     font-size: 24px;
     font-weight: 400;
     color: rgb(22, 22, 69);
+
+    @media (max-width: 767px) {
+        text-align: center;
+    }
 }
 
 .addAuthorTitle {
@@ -25,4 +36,8 @@
     border-radius: 4px;
     outline: none;
     margin-bottom: 20px;
+
+    @media (max-width: 767px) {
+        width: 100%;
+    }
 }

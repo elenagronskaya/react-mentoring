@@ -3,6 +3,10 @@
     grid-template-columns: 1fr 1fr;
     grid-template-rows: max-content;
     grid-gap: 30px;
+
+    @media (max-width: 767px) {
+        grid-template-columns: 1fr;
+    }
 }
 
 .addAuthorTitle {

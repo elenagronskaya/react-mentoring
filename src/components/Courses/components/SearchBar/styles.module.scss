@@ -2,4 +2,43 @@
     display: flex;
     justify-content: space-between;
     gap: 20px;
+
+    @media (max-width: 767px) {
+        margin-bottom: 20px;
+    }
+
+    @media (max-width: 530px) {
+        flex-direction: column;
+    }
 }
+
+.input {
+    width: 350px;
+    height: 35px;
+    padding: 10px;
+    border: 1px solid yellowgreen;
+    border-radius: 4px;
+    outline: none;
+
+    @media (max-width: 530px) {
+        width: unset;
+    }
+}
+
+.button {
+    border: 2px solid rgb(4, 4, 120);
+    border-radius: 4px;
+    color: rgb(2, 2, 19);
+    background-color: #fff;
+    padding: 5px;
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
+    width: 140px;
+    height: 35px;
+
+    @media (max-width: 530px) {
+        margin: 0 auto;
+    }
+}
+

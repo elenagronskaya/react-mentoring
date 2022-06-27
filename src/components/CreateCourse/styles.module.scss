@@ -3,6 +3,24 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+
+    @media (max-width: 530px) {
+        flex-direction: column;
+    }
+}
+
+.input {
+    width: 350px;
+    height: 35px;
+    padding: 10px;
+    border: 1px solid yellowgreen;
+    border-radius: 4px;
+    outline: none;
+
+    @media (max-width: 530px) {
+        width: unset;
+        margin-bottom: 20px;
+    }
 }
 
 .label {

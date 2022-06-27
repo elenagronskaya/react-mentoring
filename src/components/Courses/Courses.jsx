@@ -30,6 +30,7 @@ const Courses = ({ setIsAddingCourse }) => {
 				<Button
 					buttonText={ADD_COURSES}
 					onClick={() => setIsAddingCourse(true)}
+					showCourseButtonStyle={styles.button}
 				/>
 			</div>
 

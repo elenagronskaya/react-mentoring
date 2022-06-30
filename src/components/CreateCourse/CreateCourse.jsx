@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { addCourse } from '../../services/courseService';
 import Input from '../../common/Input/Input';
@@ -6,6 +6,8 @@ import Button from '../../common/Button/Button';
 import { v4 as uuidv4 } from 'uuid';
 import { CREATE_COURSE, CREATE_COURSE_TITLE } from '../../constants';
 import CreateAuthors from './components/CreateAuthors/CreateAuthors';
+import { useNavigate } from 'react-router-dom';
+import isLoggedIn from '../../helpers/checkLogIn';
 import {
 	validateEmptyString,
 	validateEmptyList,
@@ -13,7 +15,8 @@ import {
 } from '../../helpers/validationInputs';
 import styles from './styles.module.scss';
 
-const CreateCourse = ({ setIsAddingCourse }) => {
+const CreateCourse = () => {
+	let navigate = useNavigate();
 	const [courseTitle, setCourseTitle] = useState('');
 	const [coursDescription, setCourseDescription] = useState('');
 	const [authors, setAuthors] = useState([]);
@@ -28,8 +31,15 @@ const CreateCourse = ({ setIsAddingCourse }) => {
 			Number(duration) > 0
 		);
 	};
+	useEffect(() => {
+		if (!isLoggedIn()) {
+			navigate('/login');
+			return;
+		}
+	}, [navigate]);
 
 	const createCourse = () => {
+		debugger;
 		if (!validate()) {
 			alert('Please fill in all fields');
 			return;
@@ -43,7 +53,7 @@ const CreateCourse = ({ setIsAddingCourse }) => {
 			authors: authors ? authors.map((item) => item.id) : [],
 		};
 		addCourse(course);
-		setIsAddingCourse(false);
+		navigate('/courses');
 	};
 
 	return (

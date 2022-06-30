@@ -8,6 +8,7 @@ const Input = ({
 	createCourseInput,
 	value,
 	type,
+	name,
 }) => (
 	<label htmlFor='html' className={styles.label}>
 		{labelText}
@@ -17,6 +18,7 @@ const Input = ({
 			type={type}
 			onChange={onChange}
 			value={value}
+			name={name}
 		/>
 	</label>
 );

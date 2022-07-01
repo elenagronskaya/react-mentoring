@@ -1,5 +1,6 @@
 import React from 'react';
 import Input from '../../../../../common/Input/Input';
+import PropTypes from 'prop-types';
 import { DURATION } from '../../../../../constants';
 import dataFormat from '../../../../../helpers/dataFormat';
 import styles from './styles.module.scss';
@@ -21,5 +22,10 @@ const AddDuration = ({ duration, setDuration }) => (
 		</p>
 	</div>
 );
+
+AddDuration.propTypes = {
+	duration: PropTypes.number,
+	setDuration: PropTypes.func,
+};
 
 export default AddDuration;

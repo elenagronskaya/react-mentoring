@@ -6,6 +6,7 @@ import Input from '../../common/Input/Input';
 import { EMAIL, PASSWORD, LOGIN, TOKEN_KEY, USER_NAME } from '../../constants';
 import isLoggedIn from '../../helpers/checkLogIn';
 import { doLogin } from '../../services/authService';
+import PropTypes from 'prop-types';
 import styles from './styles.module.scss';
 
 const Login = ({ setUserName }) => {
@@ -85,6 +86,10 @@ const Login = ({ setUserName }) => {
 			<p className={styles.error}>{error}</p>
 		</form>
 	);
+};
+
+Login.propTypes = {
+	setUserName: PropTypes.func,
 };
 
 export default Login;

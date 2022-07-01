@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './styles.module.scss';
 
 const Input = ({
@@ -22,5 +23,15 @@ const Input = ({
 		/>
 	</label>
 );
+
+Input.propTypes = {
+	placeholder: PropTypes.string,
+	createCourseInput: PropTypes.string,
+	labelText: PropTypes.string,
+	onChange: PropTypes.func,
+	value: PropTypes.string,
+	type: PropTypes.string,
+	name: PropTypes.string,
+};
 
 export default Input;

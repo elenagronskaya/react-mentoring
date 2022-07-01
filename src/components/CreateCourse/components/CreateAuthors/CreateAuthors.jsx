@@ -6,6 +6,7 @@ import AddDuration from './AddDuration/AddDuration';
 import CourseAuthors from './CourseAuthors/CourseAuthors';
 import { getAuthors, getAuthorById } from '../../../../services/courseService';
 import { v4 as uuidv4 } from 'uuid';
+import PropTypes from 'prop-types';
 import styles from './styles.module.scss';
 
 const CreateAuthors = ({ authors, setAuthors, setDuration, duration }) => {
@@ -56,6 +57,13 @@ const CreateAuthors = ({ authors, setAuthors, setDuration, duration }) => {
 			<CourseAuthors processAuthor={deleteAuthor} authors={authors} />
 		</section>
 	);
+};
+
+CreateAuthors.propTypes = {
+	authors: PropTypes.array,
+	setDuration: PropTypes.func,
+	setAuthors: PropTypes.func,
+	duration: PropTypes.number,
 };
 
 export default CreateAuthors;

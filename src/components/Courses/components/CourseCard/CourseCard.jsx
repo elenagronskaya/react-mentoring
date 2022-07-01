@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Button from '../../../../common/Button/Button';
 import { SHOW_COURSE } from '../../../../constants';
 import styles from './styles.module.scss';
@@ -40,6 +41,15 @@ const CourseCard = ({
 			</div>
 		</div>
 	);
+};
+
+CourseCard.propTypes = {
+	id: PropTypes.string,
+	title: PropTypes.string,
+	description: PropTypes.string,
+	duration: PropTypes.string,
+	authors: PropTypes.array,
+	creationDate: PropTypes.string,
 };
 
 export default CourseCard;

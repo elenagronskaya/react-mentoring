@@ -1,5 +1,6 @@
 import React from 'react';
 import AuthorItem from '../../AuthorItem/AuthorItem';
+import PropTypes from 'prop-types';
 import styles from './styles.module.scss';
 
 const CourseAuthors = ({ authors, processAuthor }) => {
@@ -27,6 +28,11 @@ const CourseAuthors = ({ authors, processAuthor }) => {
 			)}
 		</div>
 	);
+};
+
+CourseAuthors.propTypes = {
+	authors: PropTypes.array,
+	processAuthor: PropTypes.func,
 };
 
 export default CourseAuthors;

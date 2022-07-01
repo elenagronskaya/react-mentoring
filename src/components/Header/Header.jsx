@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../common/Button/Button';
+import PropTypes from 'prop-types';
 import { LOGOUT, TOKEN_KEY, USER_NAME } from '../../constants';
 import Logo from './components/Logo/Logo';
 import styles from './styles.module.scss';
@@ -25,6 +26,11 @@ const Header = ({ setUserName, userName }) => {
 			</div>
 		</section>
 	);
+};
+
+Header.propTypes = {
+	setUserName: PropTypes.func,
+	userName: PropTypes.string,
 };
 
 export default Header;

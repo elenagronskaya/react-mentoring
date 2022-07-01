@@ -39,7 +39,6 @@ const CreateCourse = () => {
 	}, [navigate]);
 
 	const createCourse = () => {
-		debugger;
 		if (!validate()) {
 			alert('Please fill in all fields');
 			return;
@@ -82,7 +81,7 @@ const CreateCourse = () => {
 					authors={authors}
 					setAuthors={setAuthors}
 					setDuration={setDuration}
-					duration={duration}
+					duration={Number(duration)}
 				/>
 			</div>
 		</section>

@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+
 import Button from '../../common/Button/Button';
 import Input from '../../common/Input/Input';
-import { NAME, EMAIL, PASSWORD, REGISTRATION } from '../../constants';
+import {
+	NAME,
+	EMAIL,
+	PASSWORD,
+	REGISTRATION,
+	ROUTE_LOGIN,
+} from '../../constants';
 import { doRegistration } from '../../services/authService';
 import styles from './styles.module.scss';
 
@@ -26,16 +32,14 @@ const Registration = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		if (registration.name && registration.email && registration.password) {
-			// setRegistration({ name: '', email: '', password: '' });
 			try {
 				await doRegistration(
 					registration.name,
 					registration.email,
 					registration.password
 				);
-				navigate('/login');
+				navigate(ROUTE_LOGIN);
 			} catch (error) {
-				debugger;
 				if (error.response) {
 					setErrors(error.response.data.errors);
 				} else {
@@ -74,18 +78,16 @@ const Registration = () => {
 			<Button buttonText={REGISTRATION} type='submit' />
 			<p className={styles.text}>
 				If you have an account you can
-				<Link to='/login' className={styles.link}>
+				<Link to={ROUTE_LOGIN} className={styles.link}>
 					{' '}
 					Login
 				</Link>
 			</p>
-			{errors.map((error) => {
-				return (
-					<p key={`regestration-${error}`} className={styles.error}>
-						{error}
-					</p>
-				);
-			})}
+			{errors?.map((error) => (
+				<p key={`regestration-${error}`} className={styles.error}>
+					{error}
+				</p>
+			))}
 		</form>
 	);
 };

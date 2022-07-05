@@ -4,6 +4,7 @@ import moment from 'moment';
 import { getCourseById } from '../../services/courseService';
 import dataFormat from '../../helpers/dataFormat';
 import styles from './styles.module.scss';
+import { ROUTE_COURSES } from '../../constants';
 
 const CourseInfo = () => {
 	const [course, setCourse] = useState(null);
@@ -17,26 +18,21 @@ const CourseInfo = () => {
 
 	return (
 		<section className={styles.courseInfo}>
-			<Link to='/courses' className={styles.link}>
-				&lt;Back to courses
+			<Link to={ROUTE_COURSES} className={styles.link}>
+				&lt; Back to courses
 			</Link>
 			<div>
-				<h3 className={styles.title}>{course == null ? '' : course.title}</h3>
+				<h3 className={styles.title}>{course?.title || ''}</h3>
 				<div className={styles.content}>
-					<div className={styles.description}>
-						{course == null ? '' : course.description}
-					</div>
+					<div className={styles.description}>{course?.description || ''}</div>
 					<div className={styles.infoWrapper}>
 						<p className={styles.infoTitle}>
-							ID:{' '}
-							<span className={styles.infoDesc}>
-								{course == null ? '' : course.id}
-							</span>
+							ID: <span className={styles.infoDesc}>{course?.id || ''}</span>
 						</p>
 						<p className={styles.infoTitle}>
 							Duration:{' '}
 							<span className={styles.infoDesc}>
-								{course == null ? '' : dataFormat(course.duration)}
+								{dataFormat(course?.duraction || null)}
 							</span>
 						</p>
 						<p className={styles.infoTitle}>
@@ -45,7 +41,7 @@ const CourseInfo = () => {
 						<p className={styles.infoTitle}>
 							Authors:{' '}
 							<span className={styles.infoDesc}>
-								{course == null ? '' : course.authors.join(', ')}
+								{course?.authors.join(', ') || ''}
 							</span>
 						</p>
 					</div>

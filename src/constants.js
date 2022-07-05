@@ -37,3 +37,17 @@ export const PASSWORD = 'Password';
 export const TOKEN_KEY = 'token';
 
 export const USER_NAME = 'username';
+
+//========================//=====================//
+
+export const ROUTE_COURSES = '/courses';
+
+export const ROUTE_COURSES_ADD = '/courses/add';
+
+export const ROUTE_REGISTRATION = '/registration';
+
+export const ROUTE_LOGIN = '/login';
+
+export const ROUTE_COURSE_ID = '/courses/:courseId';
+
+//========================//=====================//

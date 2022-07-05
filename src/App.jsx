@@ -12,7 +12,14 @@ import Login from './components/Login/Login';
 import Courses from './components/Courses/Courses';
 import CreateCourse from './components/CreateCourse/CreateCourse';
 import CourseInfo from './components/CourseInfo/CourseInfo';
-import { USER_NAME } from './constants';
+import {
+	ROUTE_COURSES,
+	ROUTE_COURSES_ADD,
+	ROUTE_COURSE_ID,
+	ROUTE_LOGIN,
+	ROUTE_REGISTRATION,
+	USER_NAME,
+} from './constants';
 
 function App() {
 	const [userName, setUserName] = useState(localStorage.getItem(USER_NAME));
@@ -22,11 +29,14 @@ function App() {
 				<Header setUserName={setUserName} userName={userName} />
 				<Routes>
 					<Route path='/' element={<Login setUserName={setUserName} />} />
-					<Route path='/registration' element={<Registration />} />
-					<Route path='/login' element={<Login setUserName={setUserName} />} />
-					<Route path='/courses' element={<Courses />} />
-					<Route path='/courses/add' element={<CreateCourse />} />
-					<Route path='/courses/:courseId' element={<CourseInfo />} />
+					<Route path={ROUTE_REGISTRATION} element={<Registration />} />
+					<Route
+						path={ROUTE_LOGIN}
+						element={<Login setUserName={setUserName} />}
+					/>
+					<Route path={ROUTE_COURSES} element={<Courses />} />
+					<Route path={ROUTE_COURSES_ADD} element={<CreateCourse />} />
+					<Route path={ROUTE_COURSE_ID} element={<CourseInfo />} />
 					<Route path='*' element={<Navigate to='/' />} />
 				</Routes>
 			</Router>

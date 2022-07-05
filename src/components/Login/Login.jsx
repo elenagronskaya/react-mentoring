@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
 import Button from '../../common/Button/Button';
 import Input from '../../common/Input/Input';
-import { EMAIL, PASSWORD, LOGIN, TOKEN_KEY, USER_NAME } from '../../constants';
+import {
+	EMAIL,
+	PASSWORD,
+	LOGIN,
+	TOKEN_KEY,
+	USER_NAME,
+	ROUTE_COURSES,
+	ROUTE_REGISTRATION,
+} from '../../constants';
 import isLoggedIn from '../../helpers/checkLogIn';
 import { doLogin } from '../../services/authService';
-import PropTypes from 'prop-types';
 import styles from './styles.module.scss';
 
 const Login = ({ setUserName }) => {
@@ -20,7 +28,7 @@ const Login = ({ setUserName }) => {
 
 	useEffect(() => {
 		if (isLoggedIn()) {
-			navigate('/courses');
+			navigate(ROUTE_COURSES);
 			return;
 		}
 	}, [navigate]);
@@ -46,7 +54,7 @@ const Login = ({ setUserName }) => {
 			const userName = data.user.name;
 			setUserName(userName);
 			WriteLoginResponeToLocalStorage(token, userName);
-			navigate('/courses');
+			navigate(ROUTE_COURSES);
 		} catch (err) {
 			if (err.response) {
 				setError(err.response.data.result);
@@ -78,7 +86,7 @@ const Login = ({ setUserName }) => {
 			<Button buttonText={LOGIN} type='submit' />
 			<p className={styles.text}>
 				If you not have an account you can
-				<Link to='/registration' className={styles.link}>
+				<Link to={ROUTE_REGISTRATION} className={styles.link}>
 					{' '}
 					Registration
 				</Link>
@@ -89,7 +97,7 @@ const Login = ({ setUserName }) => {
 };
 
 Login.propTypes = {
-	setUserName: PropTypes.func,
+	setUserName: PropTypes.func.isRequired,
 };
 
 export default Login;

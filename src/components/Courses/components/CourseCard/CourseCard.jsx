@@ -1,8 +1,9 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
+
 import Button from '../../../../common/Button/Button';
-import { SHOW_COURSE } from '../../../../constants';
+import { ROUTE_COURSES, SHOW_COURSE } from '../../../../constants';
 import styles from './styles.module.scss';
 
 const CourseCard = ({
@@ -36,7 +37,7 @@ const CourseCard = ({
 				<Button
 					buttonText={SHOW_COURSE}
 					showCourseButtonStyle={styles.showCourseButtonStyle}
-					onClick={() => navigate(`/courses/${id}`)}
+					onClick={() => navigate(`${ROUTE_COURSES}/${id}`)}
 				/>
 			</div>
 		</div>
@@ -44,12 +45,12 @@ const CourseCard = ({
 };
 
 CourseCard.propTypes = {
-	id: PropTypes.string,
-	title: PropTypes.string,
-	description: PropTypes.string,
-	duration: PropTypes.string,
-	authors: PropTypes.array,
-	creationDate: PropTypes.string,
+	id: PropTypes.string.isRequired,
+	title: PropTypes.string.isRequired,
+	description: PropTypes.string.isRequired,
+	duration: PropTypes.string.isRequired,
+	authors: PropTypes.array.isRequired,
+	creationDate: PropTypes.string.isRequired,
 };
 
 export default CourseCard;

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+
 import Button from '../../../../../common/Button/Button';
 import Input from '../../../../../common/Input/Input';
-import PropTypes from 'prop-types';
 import { AUTHOR_NAME, CREATE_AUTHOR } from '../../../../../constants';
 import { validateMinLength } from '../../../../../helpers/validationInputs';
 import styles from './styles.module.scss';
@@ -42,7 +43,7 @@ const AddAuthors = ({ createAuthor }) => {
 };
 
 AddAuthors.propTypes = {
-	createAuthor: PropTypes.func,
+	createAuthor: PropTypes.func.isRequired,
 };
 
 export default AddAuthors;

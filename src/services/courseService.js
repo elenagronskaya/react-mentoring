@@ -17,18 +17,18 @@ export const getCourses = (filter) => {
 };
 
 export const getCourseById = (id) => {
-	const courses = mockedCoursesList
-		.filter((item) => item.id.toLowerCase().includes(id.toLowerCase()))
-		.map((item) => {
-			const author = { ...item };
-			author.authors = joinAuthors(item.authors);
-			return author;
-		});
-	if (courses == null) return null;
-	if (courses.length === undefined) {
-		return courses;
+	const foundCourse = mockedCoursesList.find(
+		(item) => item.id.toLowerCase() === id.toLowerCase()
+	);
+
+	if (foundCourse == null) {
+		return null;
 	}
-	return courses[0];
+
+	const course = { ...foundCourse };
+	course.authors = joinAuthors(course.authors);
+
+	return course;
 };
 
 export const joinAuthors = (authorIds) => {

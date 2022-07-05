@@ -1,6 +1,7 @@
 import React from 'react';
-import Button from '../../../../common/Button/Button';
 import PropTypes from 'prop-types';
+
+import Button from '../../../../common/Button/Button';
 import { ADD_AUTHOR, DELETE_AUTHOR } from '../../../../constants';
 import styles from './styles.module.scss';
 
@@ -15,10 +16,15 @@ const AuthorItem = ({ name, id, processAuthor, isDelete }) => (
 );
 
 AuthorItem.propTypes = {
-	name: PropTypes.string,
+	name: PropTypes.string.isRequired,
 	isDelete: PropTypes.bool,
-	processAuthor: PropTypes.func,
-	id: PropTypes.string,
+	processAuthor: PropTypes.func.isRequired,
+	id: PropTypes.string.isRequired,
+};
+AuthorItem.defaultProps = {
+	type: 'button',
+	showCourseButtonStyle: styles.button,
+	isDelete: false,
 };
 
 export default AuthorItem;

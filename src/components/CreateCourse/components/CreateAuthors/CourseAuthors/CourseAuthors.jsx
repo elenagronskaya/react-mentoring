@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import AuthorItem from '../../AuthorItem/AuthorItem';
 import styles from './styles.module.scss';
 
@@ -28,5 +30,12 @@ const CourseAuthors = ({ authors, processAuthor }) => {
 		</div>
 	);
 };
+
+CourseAuthors.propTypes = {
+	authors: PropTypes.array,
+	processAuthor: PropTypes.func.isRequired,
+};
+
+CourseAuthors.defaultProps = { authors: [] };
 
 export default CourseAuthors;

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+
 import Button from '../../../../../common/Button/Button';
 import Input from '../../../../../common/Input/Input';
 import { AUTHOR_NAME, CREATE_AUTHOR } from '../../../../../constants';
@@ -38,6 +40,10 @@ const AddAuthors = ({ createAuthor }) => {
 			/>
 		</div>
 	);
+};
+
+AddAuthors.propTypes = {
+	createAuthor: PropTypes.func.isRequired,
 };
 
 export default AddAuthors;

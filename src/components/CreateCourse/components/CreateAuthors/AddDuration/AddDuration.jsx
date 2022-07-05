@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import Input from '../../../../../common/Input/Input';
 import { DURATION } from '../../../../../constants';
 import dataFormat from '../../../../../helpers/dataFormat';
@@ -21,5 +23,10 @@ const AddDuration = ({ duration, setDuration }) => (
 		</p>
 	</div>
 );
+
+AddDuration.propTypes = {
+	duration: PropTypes.number.isRequired,
+	setDuration: PropTypes.func.isRequired,
+};
 
 export default AddDuration;

@@ -16,6 +16,21 @@ export const getCourses = (filter) => {
 		});
 };
 
+export const getCourseById = (id) => {
+	const foundCourse = mockedCoursesList.find(
+		(item) => item.id.toLowerCase() === id.toLowerCase()
+	);
+
+	if (!foundCourse) {
+		return null;
+	}
+
+	const course = { ...foundCourse };
+	course.authors = joinAuthors(course.authors);
+
+	return course;
+};
+
 export const joinAuthors = (authorIds) => {
 	return authorIds.map((authorId) => {
 		const authors = mockedAuthorsList.filter(({ id }) => id === authorId);

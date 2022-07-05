@@ -1,14 +1,26 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import CourseCard from './components/CourseCard/CourseCard';
 import SearchBar from './components/SearchBar/SearchBar';
 import Button from '../../common/Button/Button';
 import dataFormat from '../../helpers/dataFormat';
 import { getCourses } from '../../services/courseService';
-import { ADD_COURSES } from '../../constants';
+import { ADD_COURSES, ROUTE_COURSES_ADD, ROUTE_LOGIN } from '../../constants';
+import isLoggedIn from '../../helpers/checkLogIn';
 import styles from './styles.module.scss';
 
-const Courses = ({ setIsAddingCourse }) => {
+const Courses = () => {
 	const [courses, setCourses] = useState([]);
+
+	let navigate = useNavigate();
+
+	useEffect(() => {
+		if (!isLoggedIn()) {
+			navigate(ROUTE_LOGIN);
+			return;
+		}
+	}, [navigate]);
 
 	useEffect(() => {
 		searchCourses('');
@@ -29,7 +41,7 @@ const Courses = ({ setIsAddingCourse }) => {
 				<SearchBar onSearch={onSearch} />
 				<Button
 					buttonText={ADD_COURSES}
-					onClick={() => setIsAddingCourse(true)}
+					onClick={() => navigate(ROUTE_COURSES_ADD)}
 					showCourseButtonStyle={styles.button}
 				/>
 			</div>
@@ -44,6 +56,7 @@ const Courses = ({ setIsAddingCourse }) => {
 							duration={dataFormat(duration)}
 							authors={authors}
 							creationDate={creationDate}
+							id={id}
 						/>
 					);
 				}

@@ -1,11 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import moment from 'moment';
+import { v4 as uuidv4 } from 'uuid';
+import { useNavigate } from 'react-router-dom';
+
 import { addCourse } from '../../services/courseService';
 import Input from '../../common/Input/Input';
 import Button from '../../common/Button/Button';
-import { v4 as uuidv4 } from 'uuid';
-import { CREATE_COURSE, CREATE_COURSE_TITLE } from '../../constants';
+import {
+	CREATE_COURSE,
+	CREATE_COURSE_TITLE,
+	ROUTE_COURSES,
+	ROUTE_LOGIN,
+} from '../../constants';
 import CreateAuthors from './components/CreateAuthors/CreateAuthors';
+import isLoggedIn from '../../helpers/checkLogIn';
 import {
 	validateEmptyString,
 	validateEmptyList,
@@ -13,11 +21,13 @@ import {
 } from '../../helpers/validationInputs';
 import styles from './styles.module.scss';
 
-const CreateCourse = ({ setIsAddingCourse }) => {
+const CreateCourse = () => {
 	const [courseTitle, setCourseTitle] = useState('');
 	const [coursDescription, setCourseDescription] = useState('');
 	const [authors, setAuthors] = useState([]);
 	const [duration, setDuration] = useState(0);
+
+	let navigate = useNavigate();
 
 	const validate = () => {
 		return (
@@ -43,8 +53,14 @@ const CreateCourse = ({ setIsAddingCourse }) => {
 			authors: authors ? authors.map((item) => item.id) : [],
 		};
 		addCourse(course);
-		setIsAddingCourse(false);
+		navigate(ROUTE_COURSES);
 	};
+
+	useEffect(() => {
+		if (!isLoggedIn()) {
+			navigate(ROUTE_LOGIN);
+		}
+	}, [navigate]);
 
 	return (
 		<section>
@@ -72,7 +88,7 @@ const CreateCourse = ({ setIsAddingCourse }) => {
 					authors={authors}
 					setAuthors={setAuthors}
 					setDuration={setDuration}
-					duration={duration}
+					duration={Number(duration)}
 				/>
 			</div>
 		</section>

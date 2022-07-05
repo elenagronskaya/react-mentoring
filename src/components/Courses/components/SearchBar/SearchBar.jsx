@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+
 import Button from '../../../../common/Button/Button';
 import Input from '../../../../common/Input/Input';
 import { SEARCH } from '../../../../constants';
@@ -32,6 +34,10 @@ const SearchBar = ({ onSearch }) => {
 			/>
 		</div>
 	);
+};
+
+SearchBar.propTypes = {
+	onSearch: PropTypes.func.isRequired,
 };
 
 export default SearchBar;

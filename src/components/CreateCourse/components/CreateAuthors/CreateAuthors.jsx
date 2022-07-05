@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import PropTypes from 'prop-types';
+
 import { mockedAuthorsList } from '../../../../mocked-data';
 import AuthorItem from '../AuthorItem/AuthorItem';
 import AddAuthors from './AddAuthors/AddAuthors';
 import AddDuration from './AddDuration/AddDuration';
 import CourseAuthors from './CourseAuthors/CourseAuthors';
 import { getAuthors, getAuthorById } from '../../../../services/courseService';
-import { v4 as uuidv4 } from 'uuid';
 import styles from './styles.module.scss';
 
 const CreateAuthors = ({ authors, setAuthors, setDuration, duration }) => {
@@ -56,6 +58,13 @@ const CreateAuthors = ({ authors, setAuthors, setDuration, duration }) => {
 			<CourseAuthors processAuthor={deleteAuthor} authors={authors} />
 		</section>
 	);
+};
+
+CreateAuthors.propTypes = {
+	authors: PropTypes.array.isRequired,
+	setDuration: PropTypes.func.isRequired,
+	setAuthors: PropTypes.func.isRequired,
+	duration: PropTypes.number.isRequired,
 };
 
 export default CreateAuthors;

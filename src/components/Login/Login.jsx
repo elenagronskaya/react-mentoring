@@ -29,7 +29,6 @@ const Login = ({ setUserName }) => {
 	useEffect(() => {
 		if (isLoggedIn()) {
 			navigate(ROUTE_COURSES);
-			return;
 		}
 	}, [navigate]);
 

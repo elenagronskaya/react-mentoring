@@ -22,8 +22,6 @@ AuthorItem.propTypes = {
 	id: PropTypes.string.isRequired,
 };
 AuthorItem.defaultProps = {
-	type: 'button',
-	showCourseButtonStyle: styles.button,
 	isDelete: false,
 };
 

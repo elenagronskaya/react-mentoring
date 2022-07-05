@@ -21,7 +21,7 @@ export const getCourseById = (id) => {
 		(item) => item.id.toLowerCase() === id.toLowerCase()
 	);
 
-	if (foundCourse == null) {
+	if (!foundCourse) {
 		return null;
 	}
 

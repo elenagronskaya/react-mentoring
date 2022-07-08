@@ -1,8 +1,8 @@
-import { TOKEN_KEY } from '../constants';
+// import { TOKEN_KEY } from '../constants';
 
-const isLoggedIn = () => {
-	const token = localStorage.getItem(TOKEN_KEY);
-	return token && token !== '';
-};
+// const isLoggedIn = () => {
+// 	const token = localStorage.getItem(TOKEN_KEY);
+// 	return token && token !== '';
+// };
 
-export default isLoggedIn;
+// export default isLoggedIn;

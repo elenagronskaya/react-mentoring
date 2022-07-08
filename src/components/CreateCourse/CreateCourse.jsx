@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import { addCourse } from '../../services/courseService';
 import Input from '../../common/Input/Input';
@@ -20,12 +21,16 @@ import {
 	validateMinLength,
 } from '../../helpers/validationInputs';
 import styles from './styles.module.scss';
+import store from '../../store';
+import { createCourseSuccess } from '../../store/courses/actions';
+import getUsersSelector from '../../store/user/selectors';
 
 const CreateCourse = () => {
 	const [courseTitle, setCourseTitle] = useState('');
 	const [coursDescription, setCourseDescription] = useState('');
 	const [authors, setAuthors] = useState([]);
 	const [duration, setDuration] = useState(0);
+	const userData = useSelector(getUsersSelector);
 
 	let navigate = useNavigate();
 
@@ -52,15 +57,15 @@ const CreateCourse = () => {
 			duration: duration,
 			authors: authors ? authors.map((item) => item.id) : [],
 		};
-		addCourse(course);
+		store.dispatch(createCourseSuccess(course));
 		navigate(ROUTE_COURSES);
 	};
 
 	useEffect(() => {
-		if (!isLoggedIn()) {
+		if (!userData.isAuth) {
 			navigate(ROUTE_LOGIN);
 		}
-	}, [navigate]);
+	}, [navigate, userData.isAuth]);
 
 	return (
 		<section>

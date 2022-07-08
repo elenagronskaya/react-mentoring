@@ -1,20 +1,20 @@
 import { mockedCoursesList, mockedAuthorsList } from '../mocked-data';
 
-export const getCourses = (filter) => {
-	return mockedCoursesList
-		.filter(
-			(item) =>
-				filter == null ||
-				filter === '' ||
-				item.title.toLowerCase().includes(filter.toLowerCase()) ||
-				item.id.toLowerCase().includes(filter.toLowerCase())
-		)
-		.map((item) => {
-			const author = { ...item };
-			author.authors = joinAuthors(item.authors);
-			return author;
-		});
-};
+// export const getCourses = (filter) => {
+// 	return mockedCoursesList
+// 		.filter(
+// 			(item) =>
+// 				filter == null ||
+// 				filter === '' ||
+// 				item.title.toLowerCase().includes(filter.toLowerCase()) ||
+// 				item.id.toLowerCase().includes(filter.toLowerCase())
+// 		)
+// 		.map((item) => {
+// 			const course = { ...item };
+// 			course.authors = joinAuthors(item.authors);
+// 			return course;
+// 		});
+// };
 
 export const getCourseById = (id) => {
 	const foundCourse = mockedCoursesList.find(
@@ -41,9 +41,10 @@ export const joinAuthors = (authorIds) => {
 	});
 };
 
-export const addCourse = (course) => {
-	mockedCoursesList.push(course);
-};
+// export const addCourse = (course) => {
+// 	// mockedCoursesList.push(course);
+
+// };
 
 export const getAuthorById = (authorId) => {
 	const author = mockedAuthorsList.find((item) => item.id === authorId);

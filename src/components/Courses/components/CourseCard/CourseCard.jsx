@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../../../../common/Button/Button';
 import { ROUTE_COURSES, SHOW_COURSE } from '../../../../constants';
 import styles from './styles.module.scss';
+import store from '../../../../store';
+import { deleteCourseSuccess } from '../../../../store/courses/actions';
 
 const CourseCard = ({
 	title,
@@ -15,6 +17,10 @@ const CourseCard = ({
 	id,
 }) => {
 	let navigate = useNavigate();
+
+	const courseDelete = () => {
+		store.dispatch(deleteCourseSuccess(id));
+	};
 	return (
 		<div className={styles.cardWrapper}>
 			<div className={styles.cardContent}>
@@ -34,11 +40,15 @@ const CourseCard = ({
 					Created:
 					<span className={styles.descCard}> {creationDate}</span>
 				</p>
-				<Button
-					buttonText={SHOW_COURSE}
-					showCourseButtonStyle={styles.showCourseButtonStyle}
-					onClick={() => navigate(`${ROUTE_COURSES}/${id}`)}
-				/>
+				<div className={styles.buttonWrapper}>
+					<Button
+						buttonText={SHOW_COURSE}
+						showCourseButtonStyle={styles.showCourseButtonStyle}
+						onClick={() => navigate(`${ROUTE_COURSES}/${id}`)}
+					/>
+					<Button buttonText='delete' onClick={() => courseDelete()} />
+					<Button buttonText='update' onClick={() => console.log('update')} />
+				</div>
 			</div>
 		</div>
 	);

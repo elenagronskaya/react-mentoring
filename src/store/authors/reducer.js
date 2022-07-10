@@ -1,7 +1,7 @@
 import AUTHORS_TYPES from './types';
 
 const initialState = {
-	list: [],
+	list: null,
 	error: null,
 };
 

@@ -1,7 +1,9 @@
 import COURSE_TYPES from './types';
 
 const initialState = {
-	list: [],
+	list: null,
+	searchResult: [],
+	showCourse: null,
 	error: null,
 };
 
@@ -11,19 +13,39 @@ const coursesReducer = (state = initialState, action) => {
 			const courses = action.payload;
 			return { ...state, list: courses, error: null };
 		}
+		case COURSE_TYPES.SEARCH_RESULT_SUCCESS: {
+			const courses = action.payload;
+			return { ...state, searchResult: courses, error: null };
+		}
+
 		case COURSE_TYPES.CREATE_SUCCESS: {
 			const course = action.payload;
 			return { ...state, list: [...state.list, course], error: null };
 		}
+
+		case COURSE_TYPES.SHOW_SUCCESS: {
+			const course = action.payload;
+			return {
+				...state,
+				showCourse: course,
+				error: null,
+			};
+		}
+
 		case COURSE_TYPES.DELETE_SUCCESS: {
 			const courseId = action.payload;
-			debugger;
 			return {
 				...state,
 				list: [...state.list?.filter((item) => item.id !== courseId)],
 				error: null,
 			};
 		}
+		case COURSE_TYPES.SHOW_ERROR: {
+			const error = action.payload;
+
+			return { ...state, error: error };
+		}
+
 		case COURSE_TYPES.LIST_ERROR: {
 			const error = action.payload;
 

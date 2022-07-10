@@ -4,9 +4,11 @@ import { useNavigate } from 'react-router-dom';
 
 import Button from '../../../../common/Button/Button';
 import { ROUTE_COURSES, SHOW_COURSE } from '../../../../constants';
-import styles from './styles.module.scss';
 import store from '../../../../store';
 import { deleteCourseSuccess } from '../../../../store/courses/actions';
+import DeleteBtn from '../../../../assets/trash.svg';
+import UpdateBtn from '../../../../assets/edit-pen.png';
+import styles from './styles.module.scss';
 
 const CourseCard = ({
 	title,
@@ -46,8 +48,16 @@ const CourseCard = ({
 						showCourseButtonStyle={styles.showCourseButtonStyle}
 						onClick={() => navigate(`${ROUTE_COURSES}/${id}`)}
 					/>
-					<Button buttonText='delete' onClick={() => courseDelete()} />
-					<Button buttonText='update' onClick={() => console.log('update')} />
+					<Button
+						imageLink={DeleteBtn}
+						onClick={() => courseDelete()}
+						showCourseButtonStyle={styles.buttonImg}
+					/>
+					<Button
+						imageLink={UpdateBtn}
+						onClick={() => console.log('update')}
+						showCourseButtonStyle={styles.buttonImg}
+					/>
 				</div>
 			</div>
 		</div>

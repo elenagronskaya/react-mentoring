@@ -1,21 +1,19 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 import Button from '../../common/Button/Button';
-import { LOGOUT, ROUTE_LOGIN, TOKEN_KEY, USER_NAME } from '../../constants';
+import { LOGOUT, ROUTE_LOGIN, TOKEN_KEY } from '../../constants';
 import Logo from './components/Logo/Logo';
-import styles from './styles.module.scss';
 import getUsersSelector from '../../store/user/selectors';
 import store from '../../store';
 import { logoutUser } from '../../store/user/actions';
+import styles from './styles.module.scss';
 
 const Header = () => {
 	let navigate = useNavigate();
 
 	const userData = useSelector(getUsersSelector);
-	//const { isAuth, name } = userData;
 
 	const logout = () => {
 		localStorage.removeItem(TOKEN_KEY);

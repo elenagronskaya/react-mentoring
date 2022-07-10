@@ -16,8 +16,8 @@ const SearchBar = ({ onSearch }) => {
 		}
 	};
 
-	const onSubmit = async () => {
-		await onSearch(filter);
+	const onSubmit = () => {
+		onSearch(filter);
 	};
 	return (
 		<div className={styles.wrapperSearchBar}>

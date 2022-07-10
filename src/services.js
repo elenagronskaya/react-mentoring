@@ -1,28 +1,24 @@
-import { getAllAuthors, getAllCourses, getCoursesFilter, doLogin } from './api';
-
+import { getAllAuthors, getAllCourses, doLogin, getCoursesId } from './api';
 import store from './store';
-
-import { courseListError, courseListSuccess } from './store/courses/actions';
-import AUTHORS_TYPES from './store/authors/types';
+import {
+	courseListError,
+	courseListSuccess,
+	searchCourseResultSuccess,
+	showCourseError,
+	showCourseSuccess,
+} from './store/courses/actions';
 import { TOKEN_KEY } from './constants';
 import { loginError, loginSuccess } from './store/user/actions';
+import { authorListSuccess } from './store/authors/actions';
 
-export const getCourses = async (filter) => {
+export const getCourses = async () => {
 	try {
-		let response = null;
-		if (filter === '') {
-			response = await getAllCourses();
-		} else {
-			response = await getCoursesFilter(filter);
-		}
+		const response = await getAllCourses();
+
 		let data = response.data;
 		const courses = data.result;
-
-		// courses.map((course) => {
-		// 	course.authors = joinAuthors(authors, course.authors);
-		// 	return course;
-		// });
 		store.dispatch(courseListSuccess(courses));
+		store.dispatch(searchCourseResultSuccess(courses));
 	} catch (err) {
 		if (err.response) {
 			store.dispatch(courseListError(err.message));
@@ -32,22 +28,37 @@ export const getCourses = async (filter) => {
 	}
 };
 
-// const joinAuthors = (authors, authorIds) => {
-// 	return authorIds.map((authorId) => {
-// 		const authorObjs = authors.filter(({ id }) => id === authorId);
-// 		if (authorObjs !== null) {
-// 			return authorObjs[0].name;
-// 		}
-// 		return '';
-// 	});
-// };
+export const searchCourses = (allCourses, filter) => {
+	const courses = allCourses.filter(
+		(item) =>
+			filter == null ||
+			filter === '' ||
+			item.title.toLowerCase().includes(filter.toLowerCase()) ||
+			item.id.toLowerCase().includes(filter.toLowerCase())
+	);
+	store.dispatch(searchCourseResultSuccess(courses));
+};
+
+export const getCourseById = async (id) => {
+	try {
+		let response = null;
+		response = await getCoursesId(id);
+		let data = response.data;
+		const course = data.result;
+		store.dispatch(showCourseSuccess(course));
+	} catch (error) {
+		if (error.response) {
+			store.dispatch(showCourseError(error.message));
+		} else {
+			store.dispatch(showCourseError('Something is wrong!'));
+		}
+	}
+};
 
 export const getAuthors = async () => {
-	//const authorsData = useSelector(getAuthorsSelector);
-
 	const authorsResponse = await getAllAuthors();
 	const authors = authorsResponse.data.result;
-	store.dispatch({ type: AUTHORS_TYPES.LIST_SUCCESS, payload: authors });
+	store.dispatch(authorListSuccess(authors));
 };
 
 export const loginUser = async (email, password) => {

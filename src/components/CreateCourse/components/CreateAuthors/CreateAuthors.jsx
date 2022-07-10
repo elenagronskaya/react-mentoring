@@ -1,26 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
-
 import { useSelector } from 'react-redux';
+
 import AuthorItem from '../AuthorItem/AuthorItem';
 import AddAuthors from './AddAuthors/AddAuthors';
 import AddDuration from './AddDuration/AddDuration';
 import CourseAuthors from './CourseAuthors/CourseAuthors';
-import styles from './styles.module.scss';
-import store from '../../../../store';
-
 import getAuthorsSelector from '../../../../store/authors/selectors';
 import { authorCreateSuccess } from '../../../../store/authors/actions';
+import store from '../../../../store';
+import styles from './styles.module.scss';
 
 const CreateAuthors = ({ authors, setAuthors, setDuration, duration }) => {
 	const authorsData = useSelector(getAuthorsSelector);
 
 	const [availableAuthors, setAvailableAuthors] = useState();
 	useEffect(() => {
-		debugger;
 		setAvailableAuthors([...authorsData.list]);
-	}, []);
+	}, [authorsData.list]);
 
 	const createAuthor = (name) => {
 		const author = { name: name, id: uuidv4() };

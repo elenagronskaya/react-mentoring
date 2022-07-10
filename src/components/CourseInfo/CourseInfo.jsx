@@ -1,18 +1,34 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import moment from 'moment';
-import { getCourseById } from '../../services/courseService';
+
 import dataFormat from '../../helpers/dataFormat';
-import styles from './styles.module.scss';
 import { ROUTE_COURSES } from '../../constants';
+import getCoursesSelector from '../../store/courses/selectors';
+import getAuthorsSelector from '../../store/authors/selectors';
+import { getAuthors, getCourseById } from '../../services';
+import getAuthorName from '../../helpers/getAuthorName';
+import styles from './styles.module.scss';
 
 const CourseInfo = () => {
-	const [course, setCourse] = useState(null);
+	const coursesData = useSelector(getCoursesSelector);
+	const course = coursesData.showCourse;
+
+	const authorsData = useSelector(getAuthorsSelector);
+	const availableAuthors = authorsData?.list;
+
 	const { courseId } = useParams();
 
 	useEffect(() => {
-		setCourse(getCourseById(courseId));
+		getCourseById(courseId);
 	}, [courseId]);
+
+	useEffect(() => {
+		if (!availableAuthors || availableAuthors.length === 0) {
+			getAuthors();
+		}
+	}, [availableAuthors]);
 
 	const createDate = moment().format('DD.MM.YYYY');
 
@@ -40,9 +56,13 @@ const CourseInfo = () => {
 						</p>
 						<p className={styles.infoTitle}>
 							Authors:{' '}
-							<span className={styles.infoDesc}>
-								{course?.authors.join(', ') || ''}
-							</span>
+							{course?.authors.map((authorId) => {
+								return (
+									<span className={styles.infoDesc} key={authorId}>
+										{getAuthorName(authorId, availableAuthors)}
+									</span>
+								);
+							})}
 						</p>
 					</div>
 				</div>

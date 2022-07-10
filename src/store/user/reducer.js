@@ -11,7 +11,6 @@ const initialState = {
 const userReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case USER_TYPES.LOGIN_SUCCESS: {
-			debugger;
 			const userData = action.payload;
 			return {
 				...state,

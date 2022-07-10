@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -6,21 +6,21 @@ import CourseCard from './components/CourseCard/CourseCard';
 import SearchBar from './components/SearchBar/SearchBar';
 import Button from '../../common/Button/Button';
 import dataFormat from '../../helpers/dataFormat';
-import { getAuthors, getCourses } from '../../services';
+import { getAuthors, getCourses, searchCourses } from '../../services';
 import { ADD_COURSES, ROUTE_COURSES_ADD, ROUTE_LOGIN } from '../../constants';
-
-import styles from './styles.module.scss';
-
 import getCoursesSelector from '../../store/courses/selectors';
 import getAuthorsSelector from '../../store/authors/selectors';
 import getUsersSelector from '../../store/user/selectors';
+import getAuthorName from '../../helpers/getAuthorName';
+import styles from './styles.module.scss';
 
 const Courses = () => {
 	const userData = useSelector(getUsersSelector);
 	const coursesData = useSelector(getCoursesSelector);
 	const authorsData = useSelector(getAuthorsSelector);
 
-	const courses = coursesData?.list;
+	const allCourses = coursesData?.list;
+	const searchResult = coursesData?.searchResult;
 	const availableAuthors = authorsData?.list;
 	let navigate = useNavigate();
 
@@ -32,34 +32,19 @@ const Courses = () => {
 	}, [navigate, userData?.isAuth]);
 
 	useEffect(() => {
-		debugger;
-		if (!availableAuthors || availableAuthors.length === 0) {
+		if (!availableAuthors) {
 			getAuthors();
 		}
 
-		if (!courses || courses.length === 0) {
-			getCourses('');
+		if (!allCourses) {
+			getCourses();
+		} else {
+			searchCourses(allCourses, '');
 		}
-	}, []);
+	}, [allCourses, availableAuthors]);
 
-	const searchCourses = async (filter) => {
-		//const cources = await getCourses(filter);
-		await getCourses(filter);
-		//store.dispatch({ type: COURSE_TYPES.GET, payload: { filter: filter } });
-		//setCourses(cources);
-	};
-
-	const onSearch = async (filter) => {
-		searchCourses(filter, authorsData.list);
-	};
-
-	const getAuthorName = (authorId, authors) => {
-		debugger;
-		if (authors) {
-			const author = authors.find((author) => author.id === authorId);
-			if (author) return author.name;
-		}
-		return '';
+	const onSearch = (filter) => {
+		searchCourses(allCourses, filter);
 	};
 
 	return (
@@ -73,7 +58,7 @@ const Courses = () => {
 				/>
 			</div>
 
-			{coursesData?.list?.map(
+			{searchResult?.map(
 				({ id, title, description, duration, authors, creationDate }) => {
 					return (
 						<CourseCard
@@ -90,7 +75,7 @@ const Courses = () => {
 					);
 				}
 			)}
-			<p>{coursesData?.error}</p>
+			<p className={styles.error}>{coursesData?.error}</p>
 		</>
 	);
 };

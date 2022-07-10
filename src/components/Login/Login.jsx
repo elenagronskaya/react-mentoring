@@ -11,10 +11,9 @@ import {
 	ROUTE_COURSES,
 	ROUTE_REGISTRATION,
 } from '../../constants';
-
-import styles from './styles.module.scss';
 import getUsersSelector from '../../store/user/selectors';
 import { loginUser } from '../../services';
+import styles from './styles.module.scss';
 
 const Login = () => {
 	const [login, setLogin] = useState({

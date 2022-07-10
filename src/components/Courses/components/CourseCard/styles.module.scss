@@ -11,7 +11,7 @@
 }
 
 .cardContent {
-    width: 70%;
+    width: 60%;
 
     @media (max-width: 767px) {
         width: 100%;
@@ -19,7 +19,7 @@
 }
 
 .cardInfo {
-    width: 25%;
+    width: 30%;
     padding-top: 25px;
     display: flex;
     flex-direction: column;
@@ -59,12 +59,10 @@
 
 .showCourseButtonStyle {
     display: block;
-    margin: 0 auto;
     border: 2px solid rgb(4, 4, 120);
     border-radius: 4px;
     color: rgb(2, 2, 19);
     background-color: #fff;
-    padding: 5px 13px;
     font-size: 14px;
     font-weight: 400;
     cursor: pointer;
@@ -75,4 +73,22 @@
 .buttonWrapper {
     display: flex;
     gap: 10px;
+
+    @media (max-width: 767px) {
+        justify-content: center;
+    }
+}
+
+.buttonImg {
+    display: block;
+    border: 2px solid rgb(4, 4, 120);
+    border-radius: 4px;
+    color: rgb(2, 2, 19);
+    background-color: #fff;
+    padding: 5px 13px;
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
+    width: 80px;
+    height: 35px;
 }

@@ -4,7 +4,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import { addCourse } from '../../services/courseService';
 import Input from '../../common/Input/Input';
 import Button from '../../common/Button/Button';
 import {
@@ -14,16 +13,15 @@ import {
 	ROUTE_LOGIN,
 } from '../../constants';
 import CreateAuthors from './components/CreateAuthors/CreateAuthors';
-import isLoggedIn from '../../helpers/checkLogIn';
 import {
 	validateEmptyString,
 	validateEmptyList,
 	validateMinLength,
 } from '../../helpers/validationInputs';
-import styles from './styles.module.scss';
 import store from '../../store';
 import { createCourseSuccess } from '../../store/courses/actions';
 import getUsersSelector from '../../store/user/selectors';
+import styles from './styles.module.scss';
 
 const CreateCourse = () => {
 	const [courseTitle, setCourseTitle] = useState('');

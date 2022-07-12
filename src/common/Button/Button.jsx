@@ -11,7 +11,7 @@ const Button = ({
 	imageLink,
 }) => (
 	<button className={showCourseButtonStyle} onClick={onClick} type={type}>
-		{buttonText ? buttonText : <img src={imageLink} alt='button-text' />}
+		{buttonText || <img src={imageLink} alt='button-text' />}
 	</button>
 );
 

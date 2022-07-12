@@ -20,12 +20,14 @@ const CourseInfo = () => {
 
 	const { courseId } = useParams();
 
-	useEffect(() => {
-		getCourseById(courseId);
-	}, [courseId]);
+	const getCourseData = () => {
+		getCourseById(courseId).then();
+	};
+
+	useEffect(() => getCourseData);
 
 	useEffect(() => {
-		if (!availableAuthors || availableAuthors.length === 0) {
+		if (!availableAuthors?.length) {
 			getAuthors();
 		}
 	}, [availableAuthors]);
@@ -56,7 +58,7 @@ const CourseInfo = () => {
 						</p>
 						<p className={styles.infoTitle}>
 							Authors:{' '}
-							{course?.authors.map((authorId) => {
+							{course?.authors?.map((authorId) => {
 								return (
 									<span className={styles.infoDesc} key={authorId}>
 										{getAuthorName(authorId, availableAuthors)}

@@ -18,7 +18,7 @@ const CourseCard = ({
 	creationDate,
 	id,
 }) => {
-	let navigate = useNavigate();
+	const navigate = useNavigate();
 
 	const courseDelete = () => {
 		store.dispatch(deleteCourseSuccess(id));
@@ -50,7 +50,7 @@ const CourseCard = ({
 					/>
 					<Button
 						imageLink={DeleteBtn}
-						onClick={() => courseDelete()}
+						onClick={courseDelete}
 						showCourseButtonStyle={styles.buttonImg}
 					/>
 					<Button

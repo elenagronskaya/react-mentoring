@@ -21,7 +21,7 @@ const Registration = () => {
 		password: '',
 	});
 
-	let navigate = useNavigate();
+	const navigate = useNavigate();
 
 	const handleChange = (e) => {
 		const name = e.target.name;

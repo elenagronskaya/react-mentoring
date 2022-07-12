@@ -30,7 +30,7 @@ const CreateCourse = () => {
 	const [duration, setDuration] = useState(0);
 	const userData = useSelector(getUsersSelector);
 
-	let navigate = useNavigate();
+	const navigate = useNavigate();
 
 	const validate = () => {
 		return (

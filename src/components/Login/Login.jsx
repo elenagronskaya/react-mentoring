@@ -23,7 +23,7 @@ const Login = () => {
 
 	const userData = useSelector(getUsersSelector);
 
-	let navigate = useNavigate();
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		if (userData.isAuth) {

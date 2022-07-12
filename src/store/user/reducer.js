@@ -1,10 +1,11 @@
+import { EMAIL, TOKEN_KEY, USER_NAME } from '../../constants';
 import USER_TYPES from './types';
 
 const initialState = {
-	isAuth: false,
-	name: '',
-	email: '',
-	token: '',
+	isAuth: localStorage.getItem(TOKEN_KEY) !== null,
+	name: localStorage.getItem(USER_NAME) || '',
+	email: localStorage.getItem(EMAIL) || '',
+	token: localStorage.getItem(TOKEN_KEY) || '',
 	error: null,
 };
 
@@ -25,7 +26,11 @@ const userReducer = (state = initialState, action) => {
 		case USER_TYPES.LOGIN_LOGOUT: {
 			return {
 				...state,
-				...initialState,
+				isAuth: false,
+				name: '',
+				token: '',
+				email: '',
+				error: null,
 			};
 		}
 

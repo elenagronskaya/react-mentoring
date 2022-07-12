@@ -22,12 +22,11 @@ const Courses = () => {
 	const allCourses = coursesData?.list;
 	const searchResult = coursesData?.searchResult;
 	const availableAuthors = authorsData?.list;
-	let navigate = useNavigate();
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		if (!userData.isAuth) {
 			navigate(ROUTE_LOGIN);
-			return;
 		}
 	}, [navigate, userData?.isAuth]);
 

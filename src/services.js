@@ -1,4 +1,4 @@
-import { getAllAuthors, getAllCourses, doLogin, getCoursesId } from './api';
+import { getAllAuthors, getAllCourses, doLogin } from './api';
 import store from './store';
 import {
 	courseListError,
@@ -15,8 +15,8 @@ export const getCourses = async () => {
 	try {
 		const response = await getAllCourses();
 
-		let data = response.data;
-		const courses = data.result;
+		const { data } = response;
+		const courses = data.result || [];
 		store.dispatch(courseListSuccess(courses));
 		store.dispatch(searchCourseResultSuccess(courses));
 	} catch (err) {
@@ -39,19 +39,14 @@ export const searchCourses = (allCourses, filter) => {
 	store.dispatch(searchCourseResultSuccess(courses));
 };
 
-export const getCourseById = async (id) => {
-	try {
-		let response = null;
-		response = await getCoursesId(id);
-		let data = response.data;
-		const course = data.result;
+export const getCourseByIdInStore = async (courses, courseId) => {
+	const course = courses?.find(({ id }) => {
+		return id === courseId;
+	});
+	if (course == null) {
+		store.dispatch(showCourseError('Course is not found'));
+	} else {
 		store.dispatch(showCourseSuccess(course));
-	} catch (error) {
-		if (error.response) {
-			store.dispatch(showCourseError(error.message));
-		} else {
-			store.dispatch(showCourseError('Something is wrong!'));
-		}
 	}
 };
 
@@ -64,7 +59,7 @@ export const getAuthors = async () => {
 export const loginUser = async (email, password) => {
 	try {
 		const response = await doLogin(email, password);
-		let data = response.data;
+		const { data } = response;
 		const token = data.result;
 		const userName = data.user.name;
 		localStorage.setItem(TOKEN_KEY, token);

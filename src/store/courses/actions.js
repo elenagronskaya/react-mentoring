@@ -21,8 +21,8 @@ export const deleteCourseSuccess = (courseId) => {
 };
 
 export const courseListError = (errorText) => {
-	return { type: COURSE_TYPES.LIST_ERROR, error: errorText };
+	return { type: COURSE_TYPES.LIST_ERROR, payload: errorText };
 };
 export const showCourseError = (errorText) => {
-	return { type: COURSE_TYPES.SHOW_ERROR, error: errorText };
+	return { type: COURSE_TYPES.SHOW_ERROR, payload: errorText };
 };

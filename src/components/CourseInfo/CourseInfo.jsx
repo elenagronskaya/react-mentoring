@@ -7,7 +7,7 @@ import dataFormat from '../../helpers/dataFormat';
 import { ROUTE_COURSES } from '../../constants';
 import getCoursesSelector from '../../store/courses/selectors';
 import getAuthorsSelector from '../../store/authors/selectors';
-import { getAuthors, getCourseById } from '../../services';
+import { getAuthors, getCourseByIdInStore } from '../../services';
 import getAuthorName from '../../helpers/getAuthorName';
 import styles from './styles.module.scss';
 
@@ -20,11 +20,9 @@ const CourseInfo = () => {
 
 	const { courseId } = useParams();
 
-	const getCourseData = () => {
-		getCourseById(courseId).then();
-	};
-
-	useEffect(() => getCourseData);
+	useEffect(() => {
+		getCourseByIdInStore(coursesData.list, courseId);
+	}, [courseId, coursesData.list]);
 
 	useEffect(() => {
 		if (!availableAuthors?.length) {
@@ -69,6 +67,7 @@ const CourseInfo = () => {
 					</div>
 				</div>
 			</div>
+			<p className={styles.error}>{coursesData?.error}</p>
 		</section>
 	);
 };

@@ -55,7 +55,6 @@ const CourseCard = ({
 					/>
 					<Button
 						imageLink={UpdateBtn}
-						onClick={() => console.log('update')}
 						showCourseButtonStyle={styles.buttonImg}
 					/>
 				</div>

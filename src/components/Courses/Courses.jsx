@@ -13,6 +13,8 @@ import getAuthorsSelector from '../../store/authors/selectors';
 import getUsersSelector from '../../store/user/selectors';
 import getAuthorName from '../../helpers/getAuthorName';
 import styles from './styles.module.scss';
+import getCurrentUser from '../../store/user/thunk';
+import store from '../../store';
 
 const Courses = () => {
 	const userData = useSelector(getUsersSelector);
@@ -25,10 +27,12 @@ const Courses = () => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		if (!userData.isAuth) {
+		if (userData.isAuth) {
+			store.dispatch(getCurrentUser());
+		} else {
 			navigate(ROUTE_LOGIN);
 		}
-	}, [navigate, userData?.isAuth]);
+	}, [navigate, userData.isAuth]);
 
 	useEffect(() => {
 		if (!availableAuthors) {

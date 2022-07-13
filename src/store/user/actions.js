@@ -7,6 +7,13 @@ export const loginSuccess = (userName, email, token) => {
 	};
 };
 
+export const getUserMeSuccess = (userName, email, role) => {
+	return {
+		type: USER_TYPES.GETUSERME_SUCCESS,
+		payload: { userName, email, role },
+	};
+};
+
 export const logoutUser = () => {
 	return {
 		type: USER_TYPES.LOGIN_LOGOUT,

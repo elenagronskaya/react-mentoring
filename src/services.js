@@ -7,7 +7,6 @@ import {
 	showCourseError,
 	showCourseSuccess,
 } from './store/courses/actions';
-import { EMAIL, TOKEN_KEY, USER_NAME } from './constants';
 import { loginError, loginSuccess } from './store/user/actions';
 import { authorListSuccess } from './store/authors/actions';
 
@@ -67,9 +66,7 @@ export const loginUser = async (email, password) => {
 		let data = response.data;
 		const token = data.result;
 		const userName = data.user.name;
-		localStorage.setItem(TOKEN_KEY, token);
-		localStorage.setItem(USER_NAME, userName);
-		localStorage.setItem(EMAIL, email);
+
 		store.dispatch(loginSuccess(userName, email, token));
 		return true;
 	} catch (err) {

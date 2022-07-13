@@ -10,7 +10,7 @@ import './App.css';
 import Registration from './components/Registration/Registration';
 import Login from './components/Login/Login';
 import Courses from './components/Courses/Courses';
-import CreateCourse from './components/CreateCourse/CreateCourse';
+import CourseForm from './components/CourseForm/CourseForm';
 import CourseInfo from './components/CourseInfo/CourseInfo';
 import {
 	ROUTE_COURSES,
@@ -30,7 +30,7 @@ function App() {
 					<Route path={ROUTE_REGISTRATION} element={<Registration />} />
 					<Route path={ROUTE_LOGIN} element={<Login />} />
 					<Route path={ROUTE_COURSES} element={<Courses />} />
-					<Route path={ROUTE_COURSES_ADD} element={<CreateCourse />} />
+					<Route path={ROUTE_COURSES_ADD} element={<CourseForm />} />
 					<Route path={ROUTE_COURSE_ID} element={<CourseInfo />} />
 					<Route path='*' element={<Navigate to='/' />} />
 				</Routes>

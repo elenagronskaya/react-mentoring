@@ -47,6 +47,11 @@ const userReducer = (state = initialState, action) => {
 			return { ...state, error: error };
 		}
 
+		case USER_TYPES.LOGOUT_USER_ERROR: {
+			const error = action.payload;
+			return { ...state, error: error };
+		}
+
 		case USER_TYPES.GETUSERME_SUCCESS: {
 			const userData = action.payload;
 

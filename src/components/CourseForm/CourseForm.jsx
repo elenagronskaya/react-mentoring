@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
-import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -19,16 +18,19 @@ import {
 	validateMinLength,
 } from '../../helpers/validationInputs';
 import store from '../../store';
-import { createCourseSuccess } from '../../store/courses/actions';
+
 import getUsersSelector from '../../store/user/selectors';
 import styles from './styles.module.scss';
+import { createCourseThunk } from '../../store/courses/thunk';
+import getCoursesSelector from '../../store/courses/selectors';
 
-const CreateCourse = () => {
+const CreateForm = () => {
 	const [courseTitle, setCourseTitle] = useState('');
 	const [coursDescription, setCourseDescription] = useState('');
 	const [authors, setAuthors] = useState([]);
 	const [duration, setDuration] = useState(0);
 	const userData = useSelector(getUsersSelector);
+	const coursesData = useSelector(getCoursesSelector);
 
 	const navigate = useNavigate();
 
@@ -47,15 +49,15 @@ const CreateCourse = () => {
 			alert('Please fill in all fields');
 			return;
 		}
+
 		const course = {
-			id: uuidv4(),
 			title: courseTitle,
 			description: coursDescription,
 			creationDate: moment().format('DD.MM.YYYY'),
-			duration: duration,
+			duration: Number(duration),
 			authors: authors ? authors.map((item) => item.id) : [],
 		};
-		store.dispatch(createCourseSuccess(course));
+		store.dispatch(createCourseThunk(course));
 		navigate(ROUTE_COURSES);
 	};
 
@@ -67,6 +69,7 @@ const CreateCourse = () => {
 
 	return (
 		<section>
+			<p className={styles.error}>{coursesData?.error}</p>
 			<div>
 				<div className={styles.inputWrapper}>
 					<Input
@@ -98,4 +101,4 @@ const CreateCourse = () => {
 	);
 };
 
-export default CreateCourse;
+export default CreateForm;

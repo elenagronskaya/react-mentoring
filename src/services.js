@@ -1,31 +1,14 @@
-import { getAllAuthors, getAllCourses, doLogin, getCoursesId } from './api';
 import store from './store';
 import {
-	courseListError,
-	courseListSuccess,
 	searchCourseResultSuccess,
 	showCourseError,
 	showCourseSuccess,
 } from './store/courses/actions';
 import { loginError, loginSuccess } from './store/user/actions';
-import { authorListSuccess } from './store/authors/actions';
 
-export const getCourses = async () => {
-	try {
-		const response = await getAllCourses();
+import { getCoursesIdApi } from './store/courses/api';
 
-		let data = response.data;
-		const courses = data.result;
-		store.dispatch(courseListSuccess(courses));
-		store.dispatch(searchCourseResultSuccess(courses));
-	} catch (err) {
-		if (err.response) {
-			store.dispatch(courseListError(err.message));
-		} else {
-			store.dispatch(courseListError('Error sending request to server'));
-		}
-	}
-};
+import { doLoginApi } from './store/user/api';
 
 export const searchCourses = (allCourses, filter) => {
 	const courses = allCourses.filter(
@@ -41,7 +24,7 @@ export const searchCourses = (allCourses, filter) => {
 export const getCourseById = async (id) => {
 	try {
 		let response = null;
-		response = await getCoursesId(id);
+		response = await getCoursesIdApi(id);
 		let data = response.data;
 		const course = data.result;
 		store.dispatch(showCourseSuccess(course));
@@ -54,19 +37,12 @@ export const getCourseById = async (id) => {
 	}
 };
 
-export const getAuthors = async () => {
-	const authorsResponse = await getAllAuthors();
-	const authors = authorsResponse.data.result;
-	store.dispatch(authorListSuccess(authors));
-};
-
 export const loginUser = async (email, password) => {
 	try {
-		const response = await doLogin(email, password);
+		const response = await doLoginApi(email, password);
 		let data = response.data;
 		const token = data.result;
-		const userName = data.user.name;
-
+		const userName = data.user.name || email;
 		store.dispatch(loginSuccess(userName, email, token));
 		return true;
 	} catch (err) {

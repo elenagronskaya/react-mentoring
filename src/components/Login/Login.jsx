@@ -40,7 +40,7 @@ const Login = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		const result = loginUser(login.email, login.password);
+		const result = await loginUser(login.email, login.password);
 
 		if (result) {
 			navigate(ROUTE_COURSES);

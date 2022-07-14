@@ -37,10 +37,26 @@ const coursesReducer = (state = initialState, action) => {
 			return {
 				...state,
 				list: [...state.list?.filter((item) => item.id !== courseId)],
+				searchResult: [
+					...state.searchResult?.filter((item) => item.id !== courseId),
+				],
 				error: null,
 			};
 		}
+
 		case COURSE_TYPES.SHOW_ERROR: {
+			const error = action.payload;
+
+			return { ...state, error: error };
+		}
+
+		case COURSE_TYPES.DELETE_ERROR: {
+			const error = action.payload;
+
+			return { ...state, error: error };
+		}
+
+		case COURSE_TYPES.CREATE_ERROR: {
 			const error = action.payload;
 
 			return { ...state, error: error };

@@ -7,21 +7,25 @@ import { LOGOUT } from '../../constants';
 import Logo from './components/Logo/Logo';
 import getUsersSelector from '../../store/user/selectors';
 import store from '../../store';
-import { logoutUser } from '../../store/user/actions';
+
 import styles from './styles.module.scss';
+import { logoutUserThunk } from '../../store/user/thunk';
 
 const Header = () => {
 	const userData = useSelector(getUsersSelector);
 
 	const logout = () => {
-		store.dispatch(logoutUser());
+		store.dispatch(logoutUserThunk());
 	};
 	return (
 		<section className={styles.wrapperHeader}>
 			<Logo />
 			<div className={styles.wrapperButton}>
 				<span className={styles.nameAccount}>{userData?.name}</span>
-				{userData?.isAuth && <Button buttonText={LOGOUT} onClick={logout} />}
+				<div>
+					{userData?.isAuth && <Button buttonText={LOGOUT} onClick={logout} />}
+					<p className={styles.error}>{userData.error}</p>
+				</div>
 			</div>
 		</section>
 	);

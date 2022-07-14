@@ -7,9 +7,10 @@ import dataFormat from '../../helpers/dataFormat';
 import { ROUTE_COURSES } from '../../constants';
 import getCoursesSelector from '../../store/courses/selectors';
 import getAuthorsSelector from '../../store/authors/selectors';
-import { getAuthors, getCourseById } from '../../services';
+import { getCourseById } from '../../services';
 import getAuthorName from '../../helpers/getAuthorName';
 import styles from './styles.module.scss';
+import getAuthorsThunk from '../../store/authors/thunk';
 
 const CourseInfo = () => {
 	const coursesData = useSelector(getCoursesSelector);
@@ -28,7 +29,7 @@ const CourseInfo = () => {
 
 	useEffect(() => {
 		if (!availableAuthors?.length) {
-			getAuthors();
+			getAuthorsThunk();
 		}
 	}, [availableAuthors]);
 

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
-import { doRegistration } from '../../api';
 import Button from '../../common/Button/Button';
 import Input from '../../common/Input/Input';
 import {
@@ -11,6 +10,8 @@ import {
 	REGISTRATION,
 	ROUTE_LOGIN,
 } from '../../constants';
+import { doRegistrationApi } from '../../store/user/api';
+
 import styles from './styles.module.scss';
 
 const Registration = () => {
@@ -33,7 +34,7 @@ const Registration = () => {
 		e.preventDefault();
 		if (registration.name && registration.email && registration.password) {
 			try {
-				await doRegistration(
+				await doRegistrationApi(
 					registration.name,
 					registration.email,
 					registration.password

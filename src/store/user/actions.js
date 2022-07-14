@@ -21,5 +21,9 @@ export const logoutUser = () => {
 };
 
 export const loginError = (errorText) => {
-	return { type: USER_TYPES.LOGIN_ERROR, error: errorText };
+	return { type: USER_TYPES.LOGIN_ERROR, payload: errorText };
+};
+
+export const logoutError = (errorText) => {
+	return { type: USER_TYPES.LOGOUT_USER_ERROR, payload: errorText };
 };

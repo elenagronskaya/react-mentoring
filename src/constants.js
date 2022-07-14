@@ -51,3 +51,5 @@ export const ROUTE_LOGIN = '/login';
 export const ROUTE_COURSE_ID = '/courses/:courseId';
 
 //========================//=====================//
+
+export const ROLE_ADMIN = 'admin';

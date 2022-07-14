@@ -4,6 +4,8 @@ const COURSE_TYPES = {
 	CREATE_SUCCESS: 'course/create_success',
 	SHOW_SUCCESS: 'course/show_success',
 	DELETE_SUCCESS: 'course/delete_success',
+	DELETE_ERROR: 'course/delete_error',
+	CREATE_ERROR: 'course/create_error',
 	SHOW_ERROR: 'course/show_error',
 	LIST_ERROR: 'course/list_error',
 };

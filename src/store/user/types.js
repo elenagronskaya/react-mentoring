@@ -3,6 +3,7 @@ const USER_TYPES = {
 	LOGIN_LOGOUT: 'user/logout_success',
 	LOGIN_ERROR: 'user/login_error',
 	GETUSERME_SUCCESS: 'user/getuser_me',
+	LOGOUT_USER_ERROR: 'user/logout_error',
 };
 
 export default USER_TYPES;

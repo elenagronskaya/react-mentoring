@@ -19,6 +19,7 @@ import {
 	ROUTE_LOGIN,
 	ROUTE_REGISTRATION,
 } from './constants';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
 function App() {
 	return (
@@ -29,9 +30,30 @@ function App() {
 					<Route path='/' element={<Login />} />
 					<Route path={ROUTE_REGISTRATION} element={<Registration />} />
 					<Route path={ROUTE_LOGIN} element={<Login />} />
-					<Route path={ROUTE_COURSES} element={<Courses />} />
-					<Route path={ROUTE_COURSES_ADD} element={<CourseForm />} />
-					<Route path={ROUTE_COURSE_ID} element={<CourseInfo />} />
+					<Route
+						path={ROUTE_COURSES}
+						element={
+							<PrivateRoute>
+								<Courses />
+							</PrivateRoute>
+						}
+					/>
+					<Route
+						path={ROUTE_COURSES_ADD}
+						element={
+							<PrivateRoute>
+								<CourseForm />
+							</PrivateRoute>
+						}
+					/>
+					<Route
+						path={ROUTE_COURSE_ID}
+						element={
+							<PrivateRoute>
+								<CourseInfo />
+							</PrivateRoute>
+						}
+					/>
 					<Route path='*' element={<Navigate to='/' />} />
 				</Routes>
 			</Router>

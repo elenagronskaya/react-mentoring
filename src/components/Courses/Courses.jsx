@@ -6,18 +6,17 @@ import CourseCard from './components/CourseCard/CourseCard';
 import SearchBar from './components/SearchBar/SearchBar';
 import Button from '../../common/Button/Button';
 import dataFormat from '../../helpers/dataFormat';
-import { getAuthors, getCourses, searchCourses } from '../../services';
-import { ADD_COURSES, ROUTE_COURSES_ADD, ROUTE_LOGIN } from '../../constants';
+import { searchCourses } from '../../services';
+import { ADD_COURSES, ROUTE_COURSES_ADD } from '../../constants';
 import getCoursesSelector from '../../store/courses/selectors';
 import getAuthorsSelector from '../../store/authors/selectors';
-import getUsersSelector from '../../store/user/selectors';
 import getAuthorName from '../../helpers/getAuthorName';
 import styles from './styles.module.scss';
-import getCurrentUser from '../../store/user/thunk';
+import { getCoursesThunk } from '../../store/courses/thunk';
 import store from '../../store';
+import getAuthorsThunk from '../../store/authors/thunk';
 
 const Courses = () => {
-	const userData = useSelector(getUsersSelector);
 	const coursesData = useSelector(getCoursesSelector);
 	const authorsData = useSelector(getAuthorsSelector);
 
@@ -27,24 +26,9 @@ const Courses = () => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		if (userData.isAuth) {
-			store.dispatch(getCurrentUser());
-		} else {
-			navigate(ROUTE_LOGIN);
-		}
-	}, [navigate, userData.isAuth]);
-
-	useEffect(() => {
-		if (!availableAuthors) {
-			getAuthors();
-		}
-
-		if (!allCourses) {
-			getCourses();
-		} else {
-			searchCourses(allCourses, '');
-		}
-	}, [allCourses, availableAuthors]);
+		store.dispatch(getAuthorsThunk());
+		store.dispatch(getCoursesThunk());
+	}, []);
 
 	const onSearch = (filter) => {
 		searchCourses(allCourses, filter);

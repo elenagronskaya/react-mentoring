@@ -1,14 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux/';
 
 import Button from '../../../../common/Button/Button';
-import { ROUTE_COURSES, SHOW_COURSE } from '../../../../constants';
+import { ROUTE_COURSES, SHOW_COURSE, ROLE_ADMIN } from '../../../../constants';
 import store from '../../../../store';
-import { deleteCourseSuccess } from '../../../../store/courses/actions';
 import DeleteBtn from '../../../../assets/trash.svg';
 import UpdateBtn from '../../../../assets/edit-pen.png';
 import styles from './styles.module.scss';
+import getUsersSelector from '../../../../store/user/selectors';
+import { deleteCourseByIdThunk } from '../../../../store/courses/thunk';
 
 const CourseCard = ({
 	title,
@@ -19,9 +21,10 @@ const CourseCard = ({
 	id,
 }) => {
 	const navigate = useNavigate();
+	const { role } = useSelector(getUsersSelector);
 
 	const courseDelete = () => {
-		store.dispatch(deleteCourseSuccess(id));
+		store.dispatch(deleteCourseByIdThunk(id));
 	};
 	return (
 		<div className={styles.cardWrapper}>
@@ -48,16 +51,20 @@ const CourseCard = ({
 						showCourseButtonStyle={styles.showCourseButtonStyle}
 						onClick={() => navigate(`${ROUTE_COURSES}/${id}`)}
 					/>
-					<Button
-						imageLink={DeleteBtn}
-						onClick={courseDelete}
-						showCourseButtonStyle={styles.buttonImg}
-					/>
-					<Button
-						imageLink={UpdateBtn}
-						onClick={() => console.log('update')}
-						showCourseButtonStyle={styles.buttonImg}
-					/>
+					{role === ROLE_ADMIN && (
+						<>
+							<Button
+								imageLink={UpdateBtn}
+								onClick={() => console.log('update')}
+								showCourseButtonStyle={styles.buttonImg}
+							/>
+							<Button
+								imageLink={DeleteBtn}
+								onClick={courseDelete}
+								showCourseButtonStyle={styles.buttonImg}
+							/>
+						</>
+					)}
 				</div>
 			</div>
 		</div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 import Button from '../../common/Button/Button';
 import Input from '../../common/Input/Input';
@@ -8,58 +8,42 @@ import {
 	EMAIL,
 	PASSWORD,
 	LOGIN,
-	TOKEN_KEY,
-	USER_NAME,
 	ROUTE_COURSES,
 	ROUTE_REGISTRATION,
 } from '../../constants';
-import isLoggedIn from '../../helpers/checkLogIn';
-import { doLogin } from '../../services/authService';
+import getUsersSelector from '../../store/user/selectors';
+import { loginUser } from '../../services';
 import styles from './styles.module.scss';
 
-const Login = ({ setUserName }) => {
-	const [error, setError] = useState('');
+const Login = () => {
 	const [login, setLogin] = useState({
 		email: '',
 		password: '',
 	});
 
-	let navigate = useNavigate();
+	const userData = useSelector(getUsersSelector);
+
+	const navigate = useNavigate();
 
 	useEffect(() => {
-		if (isLoggedIn()) {
+		if (userData.isAuth) {
 			navigate(ROUTE_COURSES);
 		}
-	}, [navigate]);
+	}, [navigate, userData]);
 
 	const handleChange = (e) => {
 		const name = e.target.name;
 		const value = e.target.value;
 		setLogin({ ...login, [name]: value });
 	};
-	const WriteLoginResponeToLocalStorage = (token, userName) => {
-		localStorage.setItem(TOKEN_KEY, token);
-		localStorage.setItem(USER_NAME, userName);
-	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		try {
-			const response = await doLogin(login.email, login.password);
+		const result = loginUser(login.email, login.password);
 
-			let data = response.data;
-			const token = data.result;
-			const userName = data.user.name;
-			setUserName(userName);
-			WriteLoginResponeToLocalStorage(token, userName);
+		if (result) {
 			navigate(ROUTE_COURSES);
-		} catch (err) {
-			if (err.response) {
-				setError(err.response.data.result);
-			} else {
-				setError('Error sending request to server');
-			}
 		}
 	};
 
@@ -90,13 +74,9 @@ const Login = ({ setUserName }) => {
 					Registration
 				</Link>
 			</p>
-			<p className={styles.error}>{error}</p>
+			<p className={styles.error}>{userData.error}</p>
 		</form>
 	);
-};
-
-Login.propTypes = {
-	setUserName: PropTypes.func.isRequired,
 };
 
 export default Login;

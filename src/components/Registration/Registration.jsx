@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
+import { doRegistration } from '../../api';
 import Button from '../../common/Button/Button';
 import Input from '../../common/Input/Input';
 import {
@@ -10,7 +11,6 @@ import {
 	REGISTRATION,
 	ROUTE_LOGIN,
 } from '../../constants';
-import { doRegistration } from '../../services/authService';
 import styles from './styles.module.scss';
 
 const Registration = () => {
@@ -21,7 +21,7 @@ const Registration = () => {
 		password: '',
 	});
 
-	let navigate = useNavigate();
+	const navigate = useNavigate();
 
 	const handleChange = (e) => {
 		const name = e.target.name;

@@ -1,30 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
-import { mockedAuthorsList } from '../../../../mocked-data';
 import AuthorItem from '../AuthorItem/AuthorItem';
 import AddAuthors from './AddAuthors/AddAuthors';
 import AddDuration from './AddDuration/AddDuration';
 import CourseAuthors from './CourseAuthors/CourseAuthors';
-import { getAuthors, getAuthorById } from '../../../../services/courseService';
+import getAuthorsSelector from '../../../../store/authors/selectors';
+import { authorCreateSuccess } from '../../../../store/authors/actions';
+import store from '../../../../store';
 import styles from './styles.module.scss';
 
 const CreateAuthors = ({ authors, setAuthors, setDuration, duration }) => {
-	const [availableAuthors, setAvailableAuthors] = useState([]);
+	const authorsData = useSelector(getAuthorsSelector);
 
+	const [availableAuthors, setAvailableAuthors] = useState();
 	useEffect(() => {
-		setAvailableAuthors(getAuthors());
-	}, []);
+		setAvailableAuthors([...authorsData.list]);
+	}, [authorsData.list]);
 
 	const createAuthor = (name) => {
 		const author = { name: name, id: uuidv4() };
-		mockedAuthorsList.push(author);
+		store.dispatch(authorCreateSuccess(author));
 		setAvailableAuthors([...availableAuthors, author]);
 	};
 
 	const addAuthor = (authorId) => {
-		const author = getAuthorById(authorId);
+		const author = authorsData.list.find((item) => item.id === authorId);
 		authors.push({ ...author });
 		setAvailableAuthors([
 			...availableAuthors.filter((author) => author.id !== authorId),
@@ -33,7 +36,7 @@ const CreateAuthors = ({ authors, setAuthors, setDuration, duration }) => {
 	};
 
 	const deleteAuthor = (authorId) => {
-		const author = getAuthorById(authorId);
+		const author = authorsData.list.find((item) => item.id === authorId);
 		setAuthors([...authors.filter((author) => author.id !== authorId)]);
 		setAvailableAuthors([...availableAuthors, author]);
 	};
@@ -43,7 +46,7 @@ const CreateAuthors = ({ authors, setAuthors, setDuration, duration }) => {
 			<AddAuthors createAuthor={createAuthor} />
 			<div>
 				<h2 className={styles.addAuthorTitle}>Authors</h2>
-				{availableAuthors.map(({ id, name }) => {
+				{availableAuthors?.map(({ id, name }) => {
 					return (
 						<AuthorItem
 							key={id}

@@ -1,38 +1,49 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import CourseCard from './components/CourseCard/CourseCard';
 import SearchBar from './components/SearchBar/SearchBar';
 import Button from '../../common/Button/Button';
 import dataFormat from '../../helpers/dataFormat';
-import { getCourses } from '../../services/courseService';
+import { getAuthors, getCourses, searchCourses } from '../../services';
 import { ADD_COURSES, ROUTE_COURSES_ADD, ROUTE_LOGIN } from '../../constants';
-import isLoggedIn from '../../helpers/checkLogIn';
+import getCoursesSelector from '../../store/courses/selectors';
+import getAuthorsSelector from '../../store/authors/selectors';
+import getUsersSelector from '../../store/user/selectors';
+import getAuthorName from '../../helpers/getAuthorName';
 import styles from './styles.module.scss';
 
 const Courses = () => {
-	const [courses, setCourses] = useState([]);
+	const userData = useSelector(getUsersSelector);
+	const coursesData = useSelector(getCoursesSelector);
+	const authorsData = useSelector(getAuthorsSelector);
 
-	let navigate = useNavigate();
+	const allCourses = coursesData?.list;
+	const searchResult = coursesData?.searchResult;
+	const availableAuthors = authorsData?.list;
+	const navigate = useNavigate();
 
 	useEffect(() => {
-		if (!isLoggedIn()) {
+		if (!userData.isAuth) {
 			navigate(ROUTE_LOGIN);
-			return;
 		}
-	}, [navigate]);
+	}, [navigate, userData?.isAuth]);
 
 	useEffect(() => {
-		searchCourses('');
-	}, []);
+		if (!availableAuthors) {
+			getAuthors();
+		}
 
-	const searchCourses = (filter) => {
-		const cources = getCourses(filter);
-		setCourses(cources);
-	};
+		if (!allCourses) {
+			getCourses();
+		} else {
+			searchCourses(allCourses, '');
+		}
+	}, [allCourses, availableAuthors]);
 
 	const onSearch = (filter) => {
-		searchCourses(filter);
+		searchCourses(allCourses, filter);
 	};
 
 	return (
@@ -46,7 +57,7 @@ const Courses = () => {
 				/>
 			</div>
 
-			{courses.map(
+			{searchResult?.map(
 				({ id, title, description, duration, authors, creationDate }) => {
 					return (
 						<CourseCard
@@ -54,13 +65,16 @@ const Courses = () => {
 							title={title}
 							description={description}
 							duration={dataFormat(duration)}
-							authors={authors}
+							authors={authors?.map((authorId) =>
+								getAuthorName(authorId, availableAuthors)
+							)}
 							creationDate={creationDate}
 							id={id}
 						/>
 					);
 				}
 			)}
+			<p className={styles.error}>{coursesData?.error}</p>
 		</>
 	);
 };

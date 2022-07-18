@@ -13,6 +13,7 @@ import Courses from './components/Courses/Courses';
 import CourseForm from './components/CourseForm/CourseForm';
 import CourseInfo from './components/CourseInfo/CourseInfo';
 import {
+	ROLE_ADMIN,
 	ROUTE_COURSES,
 	ROUTE_COURSES_ADD,
 	ROUTE_COURSES_UPDATE,
@@ -42,7 +43,7 @@ function App() {
 					<Route
 						path={ROUTE_COURSES_ADD}
 						element={
-							<PrivateRoute>
+							<PrivateRoute requiredRole={ROLE_ADMIN}>
 								<CourseForm />
 							</PrivateRoute>
 						}
@@ -50,7 +51,7 @@ function App() {
 					<Route
 						path={ROUTE_COURSES_UPDATE}
 						element={
-							<PrivateRoute>
+							<PrivateRoute requiredRole={ROLE_ADMIN}>
 								<CourseForm />
 							</PrivateRoute>
 						}

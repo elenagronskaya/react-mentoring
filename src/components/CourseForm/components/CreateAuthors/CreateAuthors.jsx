@@ -24,12 +24,14 @@ const CreateAuthors = ({ authors, setAuthors, setDuration, duration }) => {
 	}, []);
 
 	useEffect(() => {
-		setAvailableAuthors([
-			...authorsData.list?.filter(
-				({ id }) => !authors?.find((courseAuthorId) => courseAuthorId === id)
-			),
-		]);
-	}, [authors, authorsData.list]);
+		if (authorsData != null && authorsData.list != null) {
+			setAvailableAuthors([
+				...authorsData.list?.filter(
+					({ id }) => !authors?.find((courseAuthorId) => courseAuthorId === id)
+				),
+			]);
+		}
+	}, [authors, authorsData, authorsData.list]);
 
 	const createAuthor = (name) => {
 		store.dispatch(authorCreateThunk(name));
@@ -76,7 +78,7 @@ CreateAuthors.propTypes = {
 	authors: PropTypes.array.isRequired,
 	setDuration: PropTypes.func.isRequired,
 	setAuthors: PropTypes.func.isRequired,
-	duration: PropTypes.number.isRequired,
+	duration: PropTypes.string.isRequired,
 };
 
 export default CreateAuthors;

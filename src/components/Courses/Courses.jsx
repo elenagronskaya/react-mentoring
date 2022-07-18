@@ -7,7 +7,7 @@ import SearchBar from './components/SearchBar/SearchBar';
 import Button from '../../common/Button/Button';
 import dataFormat from '../../helpers/dataFormat';
 import { searchCourses } from '../../services';
-import { ADD_COURSES, ROUTE_COURSES_ADD } from '../../constants';
+import { ADD_COURSES, ROLE_ADMIN, ROUTE_COURSES_ADD } from '../../constants';
 import getCoursesSelector from '../../store/courses/selectors';
 import getAuthorsSelector from '../../store/authors/selectors';
 import getAuthorName from '../../helpers/getAuthorName';
@@ -15,12 +15,14 @@ import { getCoursesThunk } from '../../store/courses/thunk';
 import store from '../../store';
 import { getAuthorsThunk } from '../../store/authors/thunk';
 import styles from './styles.module.scss';
+import getUsersSelector from '../../store/user/selectors';
 
 const Courses = () => {
 	const navigate = useNavigate();
 
 	const coursesData = useSelector(getCoursesSelector);
 	const authorsData = useSelector(getAuthorsSelector);
+	const { role } = useSelector(getUsersSelector);
 
 	const allCourses = coursesData?.list;
 	const searchResult = coursesData?.searchResult;
@@ -38,11 +40,13 @@ const Courses = () => {
 		<>
 			<div className={styles.searchBarSection}>
 				<SearchBar onSearch={onSearch} />
-				<Button
-					buttonText={ADD_COURSES}
-					onClick={() => navigate(ROUTE_COURSES_ADD)}
-					showCourseButtonStyle={styles.button}
-				/>
+				{role === ROLE_ADMIN && (
+					<Button
+						buttonText={ADD_COURSES}
+						onClick={() => navigate(ROUTE_COURSES_ADD)}
+						showCourseButtonStyle={styles.button}
+					/>
+				)}
 			</div>
 
 			{searchResult?.map(

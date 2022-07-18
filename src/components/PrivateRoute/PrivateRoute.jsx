@@ -8,14 +8,23 @@ import store from '../../store';
 import getUsersSelector from '../../store/user/selectors';
 import { getCurrentUserThunk } from '../../store/user/thunk';
 
-const PrivateRoute = ({ children }) => {
+const PrivateRoute = ({ children, requiredRole }) => {
 	const userData = useSelector(getUsersSelector);
 
 	useEffect(() => {
 		store.dispatch(getCurrentUserThunk());
 	}, []);
 
-	return userData.isAuth ? children : <Navigate to={ROUTE_LOGIN} />;
+	const { role } = userData;
+	if (!userData.isAuth) {
+		return <Navigate to={ROUTE_LOGIN} />;
+	}
+
+	if (!requiredRole) {
+		return children;
+	}
+
+	return requiredRole === role ? children : <Navigate to={'/'} />;
 };
 
 export default PrivateRoute;

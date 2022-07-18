@@ -15,7 +15,7 @@ const AddDuration = ({ duration, setDuration }) => (
 			createCourseInput={styles.addInput}
 			onChange={(event) => setDuration(event.target.value)}
 			type='number'
-			value={duration}
+			value={String(duration)}
 		/>
 		<p className={styles.durationCoun}>
 			Duration:{' '}
@@ -25,7 +25,7 @@ const AddDuration = ({ duration, setDuration }) => (
 );
 
 AddDuration.propTypes = {
-	duration: PropTypes.number.isRequired,
+	duration: PropTypes.string.isRequired,
 	setDuration: PropTypes.func.isRequired,
 };
 

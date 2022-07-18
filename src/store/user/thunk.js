@@ -1,5 +1,11 @@
-import { getUserMeSuccess, logoutError, logoutUser } from './actions';
-import { getUserMeApi, logoutUserApi } from './api';
+import {
+	getUserMeSuccess,
+	loginError,
+	loginSuccess,
+	logoutError,
+	logoutUser,
+} from './actions';
+import { doLoginApi, getUserMeApi, logoutUserApi } from './api';
 
 export const getCurrentUserThunk = () => {
 	return async function (dispatch) {
@@ -12,6 +18,26 @@ export const getCurrentUserThunk = () => {
 			);
 		} catch (err) {
 			dispatch(logoutUser());
+		}
+	};
+};
+
+export const loginUserThunk = (email, password) => {
+	return async function (dispatch) {
+		try {
+			const response = await doLoginApi(email, password);
+			const { data } = response;
+			const token = data.result;
+			const userName = data.user.name || email;
+			dispatch(loginSuccess(userName, email, token));
+			return true;
+		} catch (err) {
+			if (err.response) {
+				dispatch(loginError(err.response.data.result));
+			} else {
+				dispatch(loginError('Error sending request to server'));
+			}
+			return false;
 		}
 	};
 };

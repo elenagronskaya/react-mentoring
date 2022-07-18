@@ -20,6 +20,12 @@ export const createCourseApi = async (course) => {
 	});
 };
 
+export const updateCourseApi = async (id, course) => {
+	return await axios.put(`${BASE_URL}/courses/${id}`, course, {
+		headers: getHeaders(),
+	});
+};
+
 export const deleteCourseByIdApi = async (id) => {
 	return await axios.delete(`${BASE_URL}/courses/${id}`, {
 		headers: getHeaders(),

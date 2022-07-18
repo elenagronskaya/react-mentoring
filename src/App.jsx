@@ -15,6 +15,7 @@ import CourseInfo from './components/CourseInfo/CourseInfo';
 import {
 	ROUTE_COURSES,
 	ROUTE_COURSES_ADD,
+	ROUTE_COURSES_UPDATE,
 	ROUTE_COURSE_ID,
 	ROUTE_LOGIN,
 	ROUTE_REGISTRATION,
@@ -40,6 +41,14 @@ function App() {
 					/>
 					<Route
 						path={ROUTE_COURSES_ADD}
+						element={
+							<PrivateRoute>
+								<CourseForm />
+							</PrivateRoute>
+						}
+					/>
+					<Route
+						path={ROUTE_COURSES_UPDATE}
 						element={
 							<PrivateRoute>
 								<CourseForm />

@@ -11,29 +11,29 @@ import { ADD_COURSES, ROUTE_COURSES_ADD } from '../../constants';
 import getCoursesSelector from '../../store/courses/selectors';
 import getAuthorsSelector from '../../store/authors/selectors';
 import getAuthorName from '../../helpers/getAuthorName';
-import styles from './styles.module.scss';
 import { getCoursesThunk } from '../../store/courses/thunk';
 import store from '../../store';
-import getAuthorsThunk from '../../store/authors/thunk';
+import { getAuthorsThunk } from '../../store/authors/thunk';
+import styles from './styles.module.scss';
 
 const Courses = () => {
+	const navigate = useNavigate();
+
 	const coursesData = useSelector(getCoursesSelector);
 	const authorsData = useSelector(getAuthorsSelector);
 
 	const allCourses = coursesData?.list;
 	const searchResult = coursesData?.searchResult;
 	const availableAuthors = authorsData?.list;
-	const navigate = useNavigate();
-
-	useEffect(() => {
-		store.dispatch(getAuthorsThunk());
-		store.dispatch(getCoursesThunk());
-	}, []);
 
 	const onSearch = (filter) => {
 		searchCourses(allCourses, filter);
 	};
 
+	useEffect(() => {
+		store.dispatch(getAuthorsThunk());
+		store.dispatch(getCoursesThunk());
+	}, []);
 	return (
 		<>
 			<div className={styles.searchBarSection}>

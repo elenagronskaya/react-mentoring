@@ -15,7 +15,6 @@ const userReducer = (state = initialState, action) => {
 		case USER_TYPES.LOGIN_SUCCESS: {
 			const userData = action.payload;
 			localStorage.setItem(TOKEN_KEY, userData.token);
-
 			return {
 				...state,
 				isAuth: true,
@@ -29,7 +28,6 @@ const userReducer = (state = initialState, action) => {
 
 		case USER_TYPES.LOGIN_LOGOUT: {
 			localStorage.removeItem(TOKEN_KEY);
-
 			return {
 				...state,
 				isAuth: false,
@@ -41,20 +39,8 @@ const userReducer = (state = initialState, action) => {
 			};
 		}
 
-		case USER_TYPES.LOGIN_ERROR: {
-			const error = action.payload;
-
-			return { ...state, error: error };
-		}
-
-		case USER_TYPES.LOGOUT_USER_ERROR: {
-			const error = action.payload;
-			return { ...state, error: error };
-		}
-
 		case USER_TYPES.GETUSERME_SUCCESS: {
 			const userData = action.payload;
-
 			return {
 				...state,
 				isAuth: true,
@@ -64,6 +50,17 @@ const userReducer = (state = initialState, action) => {
 				error: null,
 			};
 		}
+
+		case USER_TYPES.LOGIN_ERROR: {
+			const error = action.payload;
+			return { ...state, error: error };
+		}
+
+		case USER_TYPES.LOGOUT_USER_ERROR: {
+			const error = action.payload;
+			return { ...state, error: error };
+		}
+
 		default:
 			return state;
 	}

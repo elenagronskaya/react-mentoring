@@ -8,9 +8,9 @@ import { ROUTE_COURSES, SHOW_COURSE, ROLE_ADMIN } from '../../../../constants';
 import store from '../../../../store';
 import DeleteBtn from '../../../../assets/trash.svg';
 import UpdateBtn from '../../../../assets/edit-pen.png';
-import styles from './styles.module.scss';
 import getUsersSelector from '../../../../store/user/selectors';
 import { deleteCourseByIdThunk } from '../../../../store/courses/thunk';
+import styles from './styles.module.scss';
 
 const CourseCard = ({
 	title,
@@ -21,10 +21,15 @@ const CourseCard = ({
 	id,
 }) => {
 	const navigate = useNavigate();
+
 	const { role } = useSelector(getUsersSelector);
 
 	const courseDelete = () => {
 		store.dispatch(deleteCourseByIdThunk(id));
+	};
+
+	const courseUpdate = () => {
+		navigate(`/courses/update/${id}`);
 	};
 	return (
 		<div className={styles.cardWrapper}>
@@ -55,7 +60,7 @@ const CourseCard = ({
 						<>
 							<Button
 								imageLink={UpdateBtn}
-								onClick={() => console.log('update')}
+								onClick={courseUpdate}
 								showCourseButtonStyle={styles.buttonImg}
 							/>
 							<Button

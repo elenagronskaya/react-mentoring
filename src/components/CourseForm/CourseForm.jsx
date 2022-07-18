@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import moment from 'moment';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import Input from '../../common/Input/Input';
@@ -8,6 +7,7 @@ import Button from '../../common/Button/Button';
 import {
 	CREATE_COURSE,
 	CREATE_COURSE_TITLE,
+	UPDATE_COURSE,
 	ROUTE_COURSES,
 	ROUTE_LOGIN,
 } from '../../constants';
@@ -18,29 +18,30 @@ import {
 	validateMinLength,
 } from '../../helpers/validationInputs';
 import store from '../../store';
-
 import getUsersSelector from '../../store/user/selectors';
-import styles from './styles.module.scss';
-import { createCourseThunk } from '../../store/courses/thunk';
+import {
+	createCourseThunk,
+	fillSelectedCourseThunk,
+} from '../../store/courses/thunk';
 import getCoursesSelector from '../../store/courses/selectors';
+import { setSelectedCourseProperty } from '../../store/courses/actions';
+import styles from './styles.module.scss';
 
 const CreateForm = () => {
-	const [courseTitle, setCourseTitle] = useState('');
-	const [coursDescription, setCourseDescription] = useState('');
-	const [authors, setAuthors] = useState([]);
-	const [duration, setDuration] = useState(0);
+	const { courseId } = useParams();
+	const navigate = useNavigate();
+
 	const userData = useSelector(getUsersSelector);
 	const coursesData = useSelector(getCoursesSelector);
-
-	const navigate = useNavigate();
+	const { selectedCourse } = coursesData;
 
 	const validate = () => {
 		return (
-			validateEmptyString(courseTitle) &&
-			validateEmptyString(coursDescription) &&
-			validateMinLength(coursDescription, 2) &&
-			validateEmptyList(authors, 1) &&
-			Number(duration) > 0
+			validateEmptyString(selectedCourse.title) &&
+			validateEmptyString(selectedCourse.description) &&
+			validateMinLength(selectedCourse.description, 2) &&
+			validateEmptyList(selectedCourse.authors, 1) &&
+			Number(selectedCourse.duration) > 0
 		);
 	};
 
@@ -50,16 +51,23 @@ const CreateForm = () => {
 			return;
 		}
 
-		const course = {
-			title: courseTitle,
-			description: coursDescription,
-			creationDate: moment().format('DD.MM.YYYY'),
-			duration: Number(duration),
-			authors: authors ? authors.map((item) => item.id) : [],
-		};
-		store.dispatch(createCourseThunk(course));
+		store.dispatch(createCourseThunk({ ...selectedCourse }));
 		navigate(ROUTE_COURSES);
 	};
+
+	const setValueByName = (name, value) => {
+		store.dispatch(setSelectedCourseProperty(name, value));
+	};
+
+	const setValue = (event) => {
+		const name = event.target.name;
+		const value = event.target.value;
+		setValueByName(name, value);
+	};
+
+	useEffect(() => {
+		store.dispatch(fillSelectedCourseThunk(courseId));
+	}, [courseId]);
 
 	useEffect(() => {
 		if (!userData.isAuth) {
@@ -73,28 +81,39 @@ const CreateForm = () => {
 			<div>
 				<div className={styles.inputWrapper}>
 					<Input
+						name='title'
 						labelText={CREATE_COURSE_TITLE}
-						onChange={(event) => setCourseTitle(event.target.value)}
+						onChange={(event) => setValue(event)}
 						placeholder='Enter title...'
+						value={selectedCourse?.title || ''}
 						createCourseInput={styles.input}
 					/>
-					<Button buttonText={CREATE_COURSE} onClick={() => createCourse()} />
+					<Button
+						buttonText={courseId ? UPDATE_COURSE : CREATE_COURSE}
+						onClick={() => createCourse()}
+					/>
 				</div>
 				<label className={styles.label}>
 					Description
 					<textarea
+						name='description'
 						className={styles.textarea}
 						placeholder='Enter description'
-						onChange={(event) => setCourseDescription(event.target.value)}
+						value={selectedCourse?.description || ''}
+						onChange={(event) => setValue(event)}
 					/>
 				</label>
 			</div>
 			<div className={styles.createAuthorsWrapper}>
 				<CreateAuthors
-					authors={authors}
-					setAuthors={setAuthors}
-					setDuration={setDuration}
-					duration={Number(duration)}
+					authors={selectedCourse?.authors || []}
+					setAuthors={(value) => {
+						setValueByName('authors', value);
+					}}
+					setDuration={(value) => {
+						setValueByName('duration', value);
+					}}
+					duration={selectedCourse?.duration || ''}
 				/>
 			</div>
 		</section>

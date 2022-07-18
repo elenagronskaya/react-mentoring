@@ -15,7 +15,7 @@ const AddDuration = ({ duration, setDuration }) => (
 			createCourseInput={styles.addInput}
 			onChange={(event) => setDuration(event.target.value)}
 			type='number'
-			required
+			value={duration}
 		/>
 		<p className={styles.durationCoun}>
 			Duration:{' '}

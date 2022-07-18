@@ -16,10 +16,10 @@ const AuthorItem = ({ name, id, processAuthor, isDelete }) => (
 );
 
 AuthorItem.propTypes = {
-	name: PropTypes.string.isRequired,
+	name: PropTypes.string,
 	isDelete: PropTypes.bool,
 	processAuthor: PropTypes.func.isRequired,
-	id: PropTypes.string.isRequired,
+	id: PropTypes.string,
 };
 AuthorItem.defaultProps = {
 	isDelete: false,

@@ -67,6 +67,7 @@ const CourseInfo = () => {
 					</div>
 				</div>
 			</div>
+			<p className={styles.error}>{coursesData?.error}</p>
 		</section>
 	);
 };

@@ -27,7 +27,7 @@ import getCoursesSelector from '../../store/courses/selectors';
 import { setSelectedCourseProperty } from '../../store/courses/actions';
 import styles from './styles.module.scss';
 
-const CreateForm = () => {
+const CourseForm = () => {
 	const { courseId } = useParams();
 	const navigate = useNavigate();
 
@@ -60,8 +60,7 @@ const CreateForm = () => {
 	};
 
 	const setValue = (event) => {
-		const name = event.target.name;
-		const value = event.target.value;
+		const { name, value } = event.target;
 		setValueByName(name, value);
 	};
 
@@ -83,7 +82,7 @@ const CreateForm = () => {
 					<Input
 						name='title'
 						labelText={CREATE_COURSE_TITLE}
-						onChange={(event) => setValue(event)}
+						onChange={setValue}
 						placeholder='Enter title...'
 						value={selectedCourse?.title || ''}
 						createCourseInput={styles.input}
@@ -100,7 +99,7 @@ const CreateForm = () => {
 						className={styles.textarea}
 						placeholder='Enter description'
 						value={selectedCourse?.description || ''}
-						onChange={(event) => setValue(event)}
+						onChange={setValue}
 					/>
 				</label>
 			</div>
@@ -120,4 +119,4 @@ const CreateForm = () => {
 	);
 };
 
-export default CreateForm;
+export default CourseForm;

@@ -30,7 +30,7 @@ const Login = () => {
 		setLogin({ ...login, [name]: value });
 	};
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = (e) => {
 		e.preventDefault();
 
 		store.dispatch(loginUserThunk(login.email, login.password));

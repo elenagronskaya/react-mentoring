@@ -3,14 +3,14 @@ import { useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import moment from 'moment';
 
-import dataFormat from '../../helpers/dataFormat';
+import dateFormat from '../../helpers/dateFormat';
 import { ROUTE_COURSES } from '../../constants';
 import getCoursesSelector from '../../store/courses/selectors';
 import getAuthorsSelector from '../../store/authors/selectors';
 import getAuthorName from '../../helpers/getAuthorName';
 import { getAuthorsThunk } from '../../store/authors/thunk';
 import { getCourseByIdThunk } from '../../store/courses/thunk';
-import store from '../../store';
+import { store } from '../../store';
 import styles from './styles.module.scss';
 
 const CourseInfo = () => {
@@ -50,7 +50,7 @@ const CourseInfo = () => {
 						<p className={styles.infoTitle}>
 							Duration:{' '}
 							<span className={styles.infoDesc}>
-								{dataFormat(course?.duraction || null)}
+								{dateFormat(course?.duration || null)}
 							</span>
 						</p>
 						<p className={styles.infoTitle}>

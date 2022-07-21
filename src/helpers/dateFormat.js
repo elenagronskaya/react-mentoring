@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const dataFormat = (duration) => {
+const dateFormat = (duration) => {
 	let minutes = duration % 60;
 	let hours = (duration - minutes) / 60;
 
@@ -13,8 +13,8 @@ const dataFormat = (duration) => {
 	);
 };
 
-dataFormat.propTypes = {
+dateFormat.propTypes = {
 	duration: PropTypes.number,
 };
 
-export default dataFormat;
+export default dateFormat;

@@ -5,14 +5,13 @@ import { useSelector } from 'react-redux';
 import CourseCard from './components/CourseCard/CourseCard';
 import SearchBar from './components/SearchBar/SearchBar';
 import Button from '../../common/Button/Button';
-import dataFormat from '../../helpers/dataFormat';
 import { searchCourses } from '../../services';
 import { ADD_COURSES, ROLE_ADMIN, ROUTE_COURSES_ADD } from '../../constants';
 import getCoursesSelector from '../../store/courses/selectors';
 import getAuthorsSelector from '../../store/authors/selectors';
 import getAuthorName from '../../helpers/getAuthorName';
 import { getCoursesThunk } from '../../store/courses/thunk';
-import store from '../../store';
+import { store } from '../../store';
 import { getAuthorsThunk } from '../../store/authors/thunk';
 import styles from './styles.module.scss';
 import getUsersSelector from '../../store/user/selectors';
@@ -56,7 +55,7 @@ const Courses = () => {
 							key={id}
 							title={title}
 							description={description}
-							duration={dataFormat(duration)}
+							duration={duration}
 							authors={authors?.map((authorId) =>
 								getAuthorName(authorId, availableAuthors)
 							)}

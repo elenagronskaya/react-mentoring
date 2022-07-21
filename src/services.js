@@ -1,4 +1,4 @@
-import store from './store';
+import { store } from './store';
 import { searchCourseResultSuccess } from './store/courses/actions';
 
 export const searchCourses = (allCourses, filter) => {

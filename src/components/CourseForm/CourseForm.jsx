@@ -17,7 +17,7 @@ import {
 	validateEmptyList,
 	validateMinLength,
 } from '../../helpers/validationInputs';
-import store from '../../store';
+import { store } from '../../store';
 import getUsersSelector from '../../store/user/selectors';
 import {
 	createCourseThunk,

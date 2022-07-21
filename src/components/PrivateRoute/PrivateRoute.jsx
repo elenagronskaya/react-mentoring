@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { ROUTE_LOGIN } from '../../constants';
-import store from '../../store';
+import { store } from '../../store';
 import getUsersSelector from '../../store/user/selectors';
 import { getCurrentUserThunk } from '../../store/user/thunk';
 

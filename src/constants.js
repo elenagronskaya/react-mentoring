@@ -10,6 +10,8 @@ export const ADD_AUTHOR = 'Add author';
 
 export const CREATE_COURSE = 'Create course';
 
+export const UPDATE_COURSE = 'Update course';
+
 export const CREATE_AUTHOR = 'Create author';
 
 export const DELETE_AUTHOR = 'Delete author';
@@ -44,6 +46,8 @@ export const ROUTE_COURSES = '/courses';
 
 export const ROUTE_COURSES_ADD = '/courses/add';
 
+export const ROUTE_COURSES_UPDATE = '/courses/update/:courseId';
+
 export const ROUTE_REGISTRATION = '/registration';
 
 export const ROUTE_LOGIN = '/login';
@@ -51,3 +55,5 @@ export const ROUTE_LOGIN = '/login';
 export const ROUTE_COURSE_ID = '/courses/:courseId';
 
 //========================//=====================//
+
+export const ROLE_ADMIN = 'admin';

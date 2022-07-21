@@ -12,24 +12,17 @@ import {
 	ROUTE_REGISTRATION,
 } from '../../constants';
 import getUsersSelector from '../../store/user/selectors';
-import { loginUser } from '../../services';
+import store from '../../store';
 import styles from './styles.module.scss';
+import { loginUserThunk } from '../../store/user/thunk';
 
 const Login = () => {
 	const [login, setLogin] = useState({
 		email: '',
 		password: '',
 	});
-
 	const userData = useSelector(getUsersSelector);
-
 	const navigate = useNavigate();
-
-	useEffect(() => {
-		if (userData.isAuth) {
-			navigate(ROUTE_COURSES);
-		}
-	}, [navigate, userData]);
 
 	const handleChange = (e) => {
 		const name = e.target.name;
@@ -37,15 +30,17 @@ const Login = () => {
 		setLogin({ ...login, [name]: value });
 	};
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		const result = loginUser(login.email, login.password);
+		store.dispatch(loginUserThunk(login.email, login.password));
+	};
 
-		if (result) {
+	useEffect(() => {
+		if (userData.isAuth) {
 			navigate(ROUTE_COURSES);
 		}
-	};
+	}, [navigate, userData]);
 
 	return (
 		<form className={styles.form} onSubmit={handleSubmit}>

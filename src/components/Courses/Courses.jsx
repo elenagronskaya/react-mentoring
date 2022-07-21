@@ -6,55 +6,47 @@ import CourseCard from './components/CourseCard/CourseCard';
 import SearchBar from './components/SearchBar/SearchBar';
 import Button from '../../common/Button/Button';
 import dataFormat from '../../helpers/dataFormat';
-import { getAuthors, getCourses, searchCourses } from '../../services';
-import { ADD_COURSES, ROUTE_COURSES_ADD, ROUTE_LOGIN } from '../../constants';
+import { searchCourses } from '../../services';
+import { ADD_COURSES, ROLE_ADMIN, ROUTE_COURSES_ADD } from '../../constants';
 import getCoursesSelector from '../../store/courses/selectors';
 import getAuthorsSelector from '../../store/authors/selectors';
-import getUsersSelector from '../../store/user/selectors';
 import getAuthorName from '../../helpers/getAuthorName';
+import { getCoursesThunk } from '../../store/courses/thunk';
+import store from '../../store';
+import { getAuthorsThunk } from '../../store/authors/thunk';
 import styles from './styles.module.scss';
+import getUsersSelector from '../../store/user/selectors';
 
 const Courses = () => {
-	const userData = useSelector(getUsersSelector);
+	const navigate = useNavigate();
+
 	const coursesData = useSelector(getCoursesSelector);
 	const authorsData = useSelector(getAuthorsSelector);
+	const { role } = useSelector(getUsersSelector);
 
 	const allCourses = coursesData?.list;
 	const searchResult = coursesData?.searchResult;
 	const availableAuthors = authorsData?.list;
-	const navigate = useNavigate();
-
-	useEffect(() => {
-		if (!userData.isAuth) {
-			navigate(ROUTE_LOGIN);
-		}
-	}, [navigate, userData?.isAuth]);
-
-	useEffect(() => {
-		if (!availableAuthors) {
-			getAuthors();
-		}
-
-		if (!allCourses) {
-			getCourses();
-		} else {
-			searchCourses(allCourses, '');
-		}
-	}, [allCourses, availableAuthors]);
 
 	const onSearch = (filter) => {
 		searchCourses(allCourses, filter);
 	};
 
+	useEffect(() => {
+		store.dispatch(getAuthorsThunk());
+		store.dispatch(getCoursesThunk());
+	}, []);
 	return (
 		<>
 			<div className={styles.searchBarSection}>
 				<SearchBar onSearch={onSearch} />
-				<Button
-					buttonText={ADD_COURSES}
-					onClick={() => navigate(ROUTE_COURSES_ADD)}
-					showCourseButtonStyle={styles.button}
-				/>
+				{role === ROLE_ADMIN && (
+					<Button
+						buttonText={ADD_COURSES}
+						onClick={() => navigate(ROUTE_COURSES_ADD)}
+						showCourseButtonStyle={styles.button}
+					/>
+				)}
 			</div>
 
 			{searchResult?.map(

@@ -11,14 +11,22 @@ const authorReducer = (state = initialState, action) => {
 			const authors = action.payload;
 			return { ...state, list: authors, error: null };
 		}
+
 		case AUTHORS_TYPES.LIST_CREATE_SUCCESS: {
 			const author = action.payload;
 			return { ...state, list: [...state.list, author], error: null };
 		}
+
 		case AUTHORS_TYPES.LIST_ERROR: {
 			const error = action.payload;
 			return { ...state, error: error };
 		}
+
+		case AUTHORS_TYPES.CREATE_ERROR: {
+			const error = action.payload;
+			return { ...state, error: error };
+		}
+
 		default:
 			return state;
 	}

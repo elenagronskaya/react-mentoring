@@ -7,26 +7,28 @@ import dataFormat from '../../helpers/dataFormat';
 import { ROUTE_COURSES } from '../../constants';
 import getCoursesSelector from '../../store/courses/selectors';
 import getAuthorsSelector from '../../store/authors/selectors';
-import { getAuthors, getCourseByIdInStore } from '../../services';
 import getAuthorName from '../../helpers/getAuthorName';
+import { getAuthorsThunk } from '../../store/authors/thunk';
+import { getCourseByIdThunk } from '../../store/courses/thunk';
+import store from '../../store';
 import styles from './styles.module.scss';
 
 const CourseInfo = () => {
+	const { courseId } = useParams();
+
 	const coursesData = useSelector(getCoursesSelector);
 	const course = coursesData.showCourse;
 
 	const authorsData = useSelector(getAuthorsSelector);
 	const availableAuthors = authorsData?.list;
 
-	const { courseId } = useParams();
-
 	useEffect(() => {
-		getCourseByIdInStore(coursesData.list, courseId);
-	}, [courseId, coursesData.list]);
+		store.dispatch(getCourseByIdThunk(courseId));
+	}, [courseId]);
 
 	useEffect(() => {
 		if (!availableAuthors?.length) {
-			getAuthors();
+			store.dispatch(getAuthorsThunk());
 		}
 	}, [availableAuthors]);
 
@@ -56,13 +58,11 @@ const CourseInfo = () => {
 						</p>
 						<p className={styles.infoTitle}>
 							Authors:{' '}
-							{course?.authors?.map((authorId) => {
-								return (
-									<span className={styles.infoDesc} key={authorId}>
-										{getAuthorName(authorId, availableAuthors)}
-									</span>
-								);
-							})}
+							<span className={styles.infoDesc}>
+								{course?.authors
+									?.map((authorId) => getAuthorName(authorId, availableAuthors))
+									.join(', ')}
+							</span>
 						</p>
 					</div>
 				</div>

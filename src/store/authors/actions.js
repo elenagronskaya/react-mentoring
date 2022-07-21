@@ -9,5 +9,9 @@ export const authorCreateSuccess = (author) => {
 };
 
 export const authorListError = (errorText) => {
-	return { type: AUTHORS_TYPES.LIST_SUCCESS, payload: errorText };
+	return { type: AUTHORS_TYPES.LIST_ERROR, payload: errorText };
+};
+
+export const authorCreateError = (errorText) => {
+	return { type: AUTHORS_TYPES.CREATE_ERROR, payload: errorText };
 };

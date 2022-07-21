@@ -10,15 +10,18 @@ import './App.css';
 import Registration from './components/Registration/Registration';
 import Login from './components/Login/Login';
 import Courses from './components/Courses/Courses';
-import CreateCourse from './components/CreateCourse/CreateCourse';
+import CourseForm from './components/CourseForm/CourseForm';
 import CourseInfo from './components/CourseInfo/CourseInfo';
 import {
+	ROLE_ADMIN,
 	ROUTE_COURSES,
 	ROUTE_COURSES_ADD,
+	ROUTE_COURSES_UPDATE,
 	ROUTE_COURSE_ID,
 	ROUTE_LOGIN,
 	ROUTE_REGISTRATION,
 } from './constants';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
 function App() {
 	return (
@@ -29,9 +32,38 @@ function App() {
 					<Route path='/' element={<Login />} />
 					<Route path={ROUTE_REGISTRATION} element={<Registration />} />
 					<Route path={ROUTE_LOGIN} element={<Login />} />
-					<Route path={ROUTE_COURSES} element={<Courses />} />
-					<Route path={ROUTE_COURSES_ADD} element={<CreateCourse />} />
-					<Route path={ROUTE_COURSE_ID} element={<CourseInfo />} />
+					<Route
+						path={ROUTE_COURSES}
+						element={
+							<PrivateRoute>
+								<Courses />
+							</PrivateRoute>
+						}
+					/>
+					<Route
+						path={ROUTE_COURSES_ADD}
+						element={
+							<PrivateRoute requiredRole={ROLE_ADMIN}>
+								<CourseForm />
+							</PrivateRoute>
+						}
+					/>
+					<Route
+						path={ROUTE_COURSES_UPDATE}
+						element={
+							<PrivateRoute requiredRole={ROLE_ADMIN}>
+								<CourseForm />
+							</PrivateRoute>
+						}
+					/>
+					<Route
+						path={ROUTE_COURSE_ID}
+						element={
+							<PrivateRoute>
+								<CourseInfo />
+							</PrivateRoute>
+						}
+					/>
 					<Route path='*' element={<Navigate to='/' />} />
 				</Routes>
 			</Router>

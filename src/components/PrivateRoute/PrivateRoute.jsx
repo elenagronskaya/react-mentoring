@@ -27,13 +27,12 @@ const PrivateRoute = ({ children, requiredRole }) => {
 };
 
 PrivateRoute.propTypes = {
-	children: PropTypes.object,
+	children: PropTypes.node.isRequired,
 	requiredRole: PropTypes.string,
 };
 
 PrivateRoute.defaultProps = {
 	requiredRole: '',
-	children: {},
 };
 
 export default PrivateRoute;

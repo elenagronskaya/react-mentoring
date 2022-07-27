@@ -4,7 +4,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
 import CourseCard from '../CourseCard';
-
 import { setupStore } from '../../../../../store';
 import { ROLE_ADMIN } from '../../../../../constants';
 

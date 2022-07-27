@@ -4,15 +4,10 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
 import Header from '../Header';
-
 import { setupStore } from '../../../store';
 
-// jest.mock('./api', () => ({
-// 	getUserData: () => ({ name: 'mock name' }),
-// }));
-//const mockedUserName = 'mock name';
 const initialState = {
-	user: { name: 'mock name' /* mockedUserName*/ },
+	user: { name: 'mock name' },
 };
 
 const store = setupStore(initialState);
@@ -27,7 +22,7 @@ describe('Header', () => {
 	it('should display user name', async () => {
 		render(<Header />, { wrapper: Wrapper });
 
-		const userName = await screen.findByText('mock name' /*mockedUserName*/);
+		const userName = await screen.findByText('mock name');
 
 		expect(userName).toBeTruthy();
 	});

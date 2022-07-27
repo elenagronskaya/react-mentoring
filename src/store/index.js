@@ -3,10 +3,17 @@ import thunk from 'redux-thunk';
 
 import rootReducer from './rootReducer';
 
-const store = configureStore({
+export const store = configureStore({
 	reducer: rootReducer,
 	middleware: [thunk],
 	devTools: true,
 });
 
-export default store;
+//for tests
+export const setupStore = (preloadedState) => {
+	return configureStore({
+		reducer: rootReducer,
+		middleware: [thunk],
+		preloadedState,
+	});
+};

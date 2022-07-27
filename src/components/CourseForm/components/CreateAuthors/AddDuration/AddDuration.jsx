@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Input from '../../../../../common/Input/Input';
 import { DURATION } from '../../../../../constants';
-import dataFormat from '../../../../../helpers/dataFormat';
+import dateFormat from '../../../../../helpers/dateFormat';
 import styles from './styles.module.scss';
 
 const AddDuration = ({ duration, setDuration }) => (
@@ -19,7 +19,7 @@ const AddDuration = ({ duration, setDuration }) => (
 		/>
 		<p className={styles.durationCoun}>
 			Duration:{' '}
-			<span className={styles.durationCounNumber}>{dataFormat(duration)}</span>
+			<span className={styles.durationCounNumber}>{dateFormat(duration)}</span>
 		</p>
 	</div>
 );

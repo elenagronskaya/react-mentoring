@@ -12,7 +12,7 @@ import {
 	ROUTE_REGISTRATION,
 } from '../../constants';
 import getUsersSelector from '../../store/user/selectors';
-import store from '../../store';
+import { store } from '../../store';
 import styles from './styles.module.scss';
 import { loginUserThunk } from '../../store/user/thunk';
 

@@ -7,7 +7,7 @@ import AddAuthors from './AddAuthors/AddAuthors';
 import AddDuration from './AddDuration/AddDuration';
 import CourseAuthors from './CourseAuthors/CourseAuthors';
 import getAuthorsSelector from '../../../../store/authors/selectors';
-import store from '../../../../store';
+import { store } from '../../../../store';
 import {
 	authorCreateThunk,
 	getAuthorsThunk,

@@ -5,7 +5,7 @@ import Button from '../../common/Button/Button';
 import { LOGOUT } from '../../constants';
 import Logo from './components/Logo/Logo';
 import getUsersSelector from '../../store/user/selectors';
-import store from '../../store';
+import { store } from '../../store';
 import { logoutUserThunk } from '../../store/user/thunk';
 import styles from './styles.module.scss';
 
